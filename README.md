@@ -1,4 +1,4 @@
-# Translation of the Ruby on Rails Tutorial, 2nd Edition
+# Translation of the Ruby on Rails Tutorial (4.0 version)
 
 This repository contains the HTML source for the [Rails 4.0 version of the Ruby on Rails Tutorial](http://railstutorial.org/), with the goal of allowing translation of the tutorial to languages other than the [*lingua franca*](http://en.wikipedia.org/wiki/Lingua_franca).
 
