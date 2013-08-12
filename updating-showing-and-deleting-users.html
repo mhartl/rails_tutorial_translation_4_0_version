@@ -1632,13 +1632,15 @@ code appears in <a class="ref" href="updating-showing-and-deleting-users.html#co
 </div></div>
 
 
-<p>The <code>will_paginate</code> method is a little magical; inside a <code>users</code> view, it automatically looks for an <code>@users</code> object, and then displays pagination links to access other pages. The view in <a class="ref" href="updating-showing-and-deleting-users.html#code-will_paginate_index_view">Listing&nbsp;9.34</a> doesn&rsquo;t work yet, though, because currently <code>@users</code> contains the results of <code>User.all</code> (<a class="ref" href="updating-showing-and-deleting-users.html#code-user_index">Listing&nbsp;9.24</a>), which is of class <code>Array</code>, whereas <code>will_paginate</code> expects an object of class <code>ActiveRecord::Relation</code>. Happily, this is just the kind of object returned by the <code>paginate</code> method added by the <tt>will_paginate</tt> gem to all Active Record objects:</p>
+<p>The <code>will_paginate</code> method is a little magical; inside a <code>users</code> view, it automatically looks for an <code>@users</code> object, and then displays pagination links to access other pages. The view in <a class="ref" href="updating-showing-and-deleting-users.html#code-will_paginate_index_view">Listing&nbsp;9.34</a> doesn&rsquo;t work yet, though, because currently <code>@users</code> contains the results of <code>User.all</code> (<a class="ref" href="updating-showing-and-deleting-users.html#code-user_index">Listing&nbsp;9.24</a>), whereas <code>will_paginate</code> requires that we paginate the results explicitly using the <code>paginate</code> method:</p>
 
 <div class="code"><div class="highlight"><pre><span class="go">$ rails console</span>
 <span class="gp">&gt;&gt; </span><span class="no">User</span><span class="o">.</span><span class="n">all</span><span class="o">.</span><span class="n">class</span>
 <span class="go">=&gt; Array</span>
-<span class="gp">&gt;&gt; </span><span class="no">User</span><span class="o">.</span><span class="n">paginate</span><span class="p">(</span><span class="ss">page:</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">class</span>
-<span class="go">=&gt; ActiveRecord::Relation</span>
+<span class="gp">&gt;&gt; </span><span class="no">User</span><span class="o">.</span><span class="n">paginate</span><span class="p">(</span><span class="ss">page:</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">  User Load (1.5ms)  SELECT &quot;users&quot;.* FROM &quot;users&quot; LIMIT 30 OFFSET 0</span>
+<span class="go">   (1.7ms)  SELECT COUNT(*) FROM &quot;users&quot;</span>
+<span class="go">=&gt; #&lt;ActiveRecord::Relation [#&lt;User id: 1,...</span>
 </pre></div>
 </div>
 
