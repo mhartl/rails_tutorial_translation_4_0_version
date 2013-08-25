@@ -968,7 +968,7 @@ THE SOFTWARE.
 </div>
 
 
-<p>The application code introduces several new elements. First, we add a callback method to create the remember token:</p>
+<p>The application code introduces several new elements to the User model (<code>app/models/user.rb</code>). First, we add a callback method to create a remember token immediately before creating a new user in the database:</p>
 
 <div class="code"><div class="highlight"><pre><span class="n">before_create</span> <span class="ss">:create_remember_token</span>
 </pre></div>
@@ -1019,7 +1019,7 @@ THE SOFTWARE.
 
 <p>Note that we&rsquo;ve encrypted the remember token using <a href="https://en.wikipedia.org/wiki/SHA-1">SHA1</a>, a hashing algorithm much faster than the Bcrypt algorithm used to encrypt user passwords in <a class="ref" href="modeling-users.html#sec-an_encrypted_password">Section&nbsp;6.3.1</a>, which is important because (as we will see in <a class="ref" href="sign-in-sign-out.html#sec-a_working_sign_in_method">Section&nbsp;8.2.2</a>) for signed-in users it will be run on every page. SHA1 is less secure than Bcrypt, but in the present case it is more than sufficient because the token being encrypted is already a 16-digit random string; the SHA1 hexdigest of such a string is essentially uncrackable. (The call to <em>to_s</em> is to make sure we can handle <code>nil</code> tokens, which shouldn&rsquo;t happen in browsers but sometimes happens in tests.)</p>
 
-<p>The <code>encrypt</code> and <code>new_remember_token</code> methods are attached to the <code>User</code> class because they don&rsquo;t need a user instance to work, and they are public methods (above the <code>private</code> line) because in <a class="ref" href="sign-in-sign-out.html#sec-current_user">Section&nbsp;8.2.3</a> we will put them to use outside of the User model.</p>
+<p>The <code>encrypt</code> and <code>new_remember_token</code> methods are attached to the <code>User</code> class because they don&rsquo;t need a user instance to work,<sup class="footnote" id="fnref-8_5"><a href="#fn-8_5">5</a></sup> and they are public methods (above the <code>private</code> line) because in <a class="ref" href="sign-in-sign-out.html#sec-current_user">Section&nbsp;8.2.3</a> we will put them to use outside of the User model.</p>
 
 <p>Putting this all together yields the User model shown in <a class="ref" href="sign-in-sign-out.html#code-before_create_remember_token">Listing&nbsp;8.18</a>.</p>
 
@@ -1261,7 +1261,7 @@ THE SOFTWARE.
 </div></div>
 
 
-<p>If we did this, we would effectively replicate the functionality of <code>attr_accessor</code>, which we saw in <a class="ref" href="rails-flavored-ruby.html#sec-a_user_class">Section&nbsp;4.4.5</a>.<sup class="footnote" id="fnref-8_5"><a href="#fn-8_5">5</a></sup> The problem is that it utterly fails to solve our problem: with the code in <a class="ref" href="sign-in-sign-out.html#code-current_user_wrong">Listing&nbsp;8.21</a>, the user&rsquo;s signin status would be forgotten: as soon as the user went to another page&mdash;<em>poof!</em>&mdash;the session would end and the user would be automatically signed out.
+<p>If we did this, we would effectively replicate the functionality of <code>attr_accessor</code>, which we saw in <a class="ref" href="rails-flavored-ruby.html#sec-a_user_class">Section&nbsp;4.4.5</a>.<sup class="footnote" id="fnref-8_6"><a href="#fn-8_6">6</a></sup> The problem is that it utterly fails to solve our problem: with the code in <a class="ref" href="sign-in-sign-out.html#code-current_user_wrong">Listing&nbsp;8.21</a>, the user&rsquo;s signin status would be forgotten: as soon as the user went to another page&mdash;<em>poof!</em>&mdash;the session would end and the user would be automatically signed out.
 To avoid this problem, we can find the user corresponding to the remember token created by the code in <a class="ref" href="sign-in-sign-out.html#code-sign_in_function">Listing&nbsp;8.19</a>, as shown in <a class="ref" href="sign-in-sign-out.html#code-current_user_working">Listing&nbsp;8.22</a>. Note that, because the remember token in the database is encrypted, we first need to encrypt the token from the cookie before using it to find the user in the database. We accomplish this with the <code>User.encrypt</code> method defined in <a class="ref" href="sign-in-sign-out.html#code-before_create_remember_token">Listing&nbsp;8.18</a>.</p>
 
 <div class="label" id="code-current_user_working"></div>
@@ -1286,14 +1286,14 @@ To avoid this problem, we can find the user corresponding to the remember token 
 </div></div>
 
 
-<p><a class="ref" href="sign-in-sign-out.html#code-current_user_working">Listing&nbsp;8.22</a> uses the common but initially obscure <code>||=</code> (&ldquo;or equals&rdquo;) assignment operator (<a class="ref" href="sign-in-sign-out.html#sidebar-or_equals">Box&nbsp;8.2</a>). Its effect is to set the <code>@current_user</code> instance variable to the user corresponding to the remember token, but only if <code>@current_user</code> is undefined.<sup class="footnote" id="fnref-8_6"><a href="#fn-8_6">6</a></sup> In other words, the construction</p>
+<p><a class="ref" href="sign-in-sign-out.html#code-current_user_working">Listing&nbsp;8.22</a> uses the common but initially obscure <code>||=</code> (&ldquo;or equals&rdquo;) assignment operator (<a class="ref" href="sign-in-sign-out.html#sidebar-or_equals">Box&nbsp;8.2</a>). Its effect is to set the <code>@current_user</code> instance variable to the user corresponding to the remember token, but only if <code>@current_user</code> is undefined.<sup class="footnote" id="fnref-8_7"><a href="#fn-8_7">7</a></sup> In other words, the construction</p>
 
 <div class="code"><div class="highlight"><pre><span class="vi">@current_user</span> <span class="o">||=</span> <span class="no">User</span><span class="o">.</span><span class="n">find_by</span><span class="p">(</span><span class="ss">remember_token:</span> <span class="n">remember_token</span><span class="p">)</span>
 </pre></div>
 </div>
 
 
-<p>calls the <code>find_by</code> method the first time <code>current_user</code> is called, but on subsequent invocations returns <code>@current_user</code> without hitting the database.<sup class="footnote" id="fnref-8_7"><a href="#fn-8_7">7</a></sup> This is only useful if <code>current_user</code> is used more than once for a single user request; in any case, <code>find_by</code> will be called at least once every time a user visits a page on the site.</p>
+<p>calls the <code>find_by</code> method the first time <code>current_user</code> is called, but on subsequent invocations returns <code>@current_user</code> without hitting the database.<sup class="footnote" id="fnref-8_8"><a href="#fn-8_8">8</a></sup> This is only useful if <code>current_user</code> is used more than once for a single user request; in any case, <code>find_by</code> will be called at least once every time a user visits a page on the site.</p>
 
 <div class="label" id="sidebar-or_equals"></div>
 
@@ -1414,7 +1414,7 @@ if-else branching structure inside of Embedded Ruby:</p>
 </div>
 
 
-<p>(Notice that the signout link passes a hash argument indicating that it should submit with an HTTP <tt>DELETE</tt> request.<sup class="footnote" id="fnref-8_8"><a href="#fn-8_8">8</a></sup>) Finally, we&rsquo;ll add a profile link as follows:</p>
+<p>(Notice that the signout link passes a hash argument indicating that it should submit with an HTTP <tt>DELETE</tt> request.<sup class="footnote" id="fnref-8_9"><a href="#fn-8_9">9</a></sup>) Finally, we&rsquo;ll add a profile link as follows:</p>
 
 <div class="code"><div class="highlight"><pre><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">&quot;Profile&quot;</span><span class="p">,</span> <span class="n">current_user</span> <span class="cp">%&gt;</span>
 </pre></div>
@@ -2128,10 +2128,11 @@ if-else branching structure inside of Embedded Ruby:</p>
 <li id="fn-8_2">Image from <a href="http://www.flickr.com/photos/hermanusbackpackers/3343254977/">http://www.flickr.com/photos/hermanusbackpackers/3343254977/</a>.&nbsp;<a class="arrow" href="#fnref-8_2">&uarr;</a></li>
 <li id="fn-8_3">This choice is based on the <a href="http://railscasts.com/episodes/274-remember-me-reset-password">RailsCast on remember me</a>.&nbsp;<a class="arrow" href="#fnref-8_3">&uarr;</a></li>
 <li id="fn-8_4">For more details on the kind of callbacks supported by Active Record, see the <a href="http://guides.rubyonrails.org/v3.2.13/active_record_validations_callbacks.html">discussion of callbacks at the Rails Guides</a>.&nbsp;<a class="arrow" href="#fnref-8_4">&uarr;</a></li>
-<li id="fn-8_5">In fact, the two are exactly equivalent; <code>attr_accessor</code> is merely a convenient way to create just such getter/setter methods automatically.&nbsp;<a class="arrow" href="#fnref-8_5">&uarr;</a></li>
-<li id="fn-8_6">Typically, this means assigning to variables that are initially <code>nil</code>, but note that <code>false</code> values will also be overwritten by the <code>||=</code> operator.&nbsp;<a class="arrow" href="#fnref-8_6">&uarr;</a></li>
-<li id="fn-8_7">This is an example of <em>memoization</em>, which we discussed before in <a class="ref" href="modeling-users.html#sidebar-let">Box&nbsp;6.3</a>.&nbsp;<a class="arrow" href="#fnref-8_7">&uarr;</a></li>
-<li id="fn-8_8">Web browsers can&rsquo;t actually issue <tt>DELETE</tt> requests; Rails fakes it with JavaScript.&nbsp;<a class="arrow" href="#fnref-8_8">&uarr;</a></li>
+<li id="fn-8_5">If a method doesn&rsquo;t need an instance of an object, it should be a class method.&nbsp;<a class="arrow" href="#fnref-8_5">&uarr;</a></li>
+<li id="fn-8_6">In fact, the two are exactly equivalent; <code>attr_accessor</code> is merely a convenient way to create just such getter/setter methods automatically.&nbsp;<a class="arrow" href="#fnref-8_6">&uarr;</a></li>
+<li id="fn-8_7">Typically, this means assigning to variables that are initially <code>nil</code>, but note that <code>false</code> values will also be overwritten by the <code>||=</code> operator.&nbsp;<a class="arrow" href="#fnref-8_7">&uarr;</a></li>
+<li id="fn-8_8">This is an example of <em>memoization</em>, which we discussed before in <a class="ref" href="modeling-users.html#sidebar-let">Box&nbsp;6.3</a>.&nbsp;<a class="arrow" href="#fnref-8_8">&uarr;</a></li>
+<li id="fn-8_9">Web browsers can&rsquo;t actually issue <tt>DELETE</tt> requests; Rails fakes it with JavaScript.&nbsp;<a class="arrow" href="#fnref-8_9">&uarr;</a></li>
 </ol>
 </div>
 

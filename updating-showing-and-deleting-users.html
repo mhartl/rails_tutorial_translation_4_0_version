@@ -652,7 +652,7 @@ THE SOFTWARE.
 </div>
 
 
-<p>The authorization application code uses a <em>before filter</em>, which uses the <code>before_action</code> command to arrange for a particular method to be called before the given actions. (The command for before filters used to be called <code>before_filter</code>, but the Rails core team decided to rename it to emphasize that the filter takes place before particular controler actions.) To require users to be signed in, we define a <code>signed_in_user</code> method and invoke it using <code>before_action :signed_in_user</code>, as shown in <a class="ref" href="updating-showing-and-deleting-users.html#code-authorize_before_filter">Listing&nbsp;9.12</a>.</p>
+<p>The authorization application code uses a <em>before filter</em>, which uses the <code>before_action</code> command to arrange for a particular method to be called before the given actions. (The command for before filters used to be called <code>before_filter</code>, but the Rails core team decided to rename it to emphasize that the filter takes place before particular controller actions.) To require users to be signed in, we define a <code>signed_in_user</code> method and invoke it using <code>before_action :signed_in_user</code>, as shown in <a class="ref" href="updating-showing-and-deleting-users.html#code-authorize_before_filter">Listing&nbsp;9.12</a>.</p>
 
 <div class="label" id="code-authorize_before_filter"></div>
 
