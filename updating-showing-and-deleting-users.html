@@ -758,7 +758,7 @@ THE SOFTWARE.
 <h3><a id="sec-9_2_2" href="updating-showing-and-deleting-users.html#sec-requiring_the_right_user" class="heading"><span class="number">9.2.2</span> Requiring the right user</a></h3>
 
 
-<p>Of course, requiring users to sign in isn&rsquo;t quite enough; users should only be allowed to edit their <em>own</em> information. We can test for this by first signing in as an incorrect user and then hitting the <code>edit</code> and <code>update</code> actions (<a class="ref" href="updating-showing-and-deleting-users.html#code-edit_update_wrong_user_tests">Listing&nbsp;9.14</a>). Note that, since users should never even <em>try</em> to edit another user&rsquo;s profile, we redirect not to the signin page but to the root URL.</p>
+<p>Of course, requiring users to sign in isn&rsquo;t quite enough; users should only be allowed to edit their <em>own</em> information. We can test for this by first signing in as an incorrect user and then hitting the <code>edit</code> and <code>update</code> actions (<a class="ref" href="updating-showing-and-deleting-users.html#code-edit_update_wrong_user_tests">Listing&nbsp;9.14</a>). Note that, because we&rsquo;re not using Capybara for these tests (<code>no_capybara: true</code>), we use the <code>get</code> and <code>patch</code> methods to hit the <code>edit</code> and <code>update</code> actions directly. In addition, because users should never even <em>try</em> to edit another user&rsquo;s profile, upon detecting unauthorized access we redirect to the root URL rather than to the signin page.</p>
 
 <div class="label" id="code-edit_update_wrong_user_tests"></div>
 
@@ -780,9 +780,10 @@ THE SOFTWARE.
       <span class="n">let</span><span class="p">(</span><span class="ss">:wrong_user</span><span class="p">)</span> <span class="p">{</span> <span class="no">FactoryGirl</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="ss">:user</span><span class="p">,</span> <span class="ss">email:</span> <span class="s2">&quot;wrong@example.com&quot;</span><span class="p">)</span> <span class="p">}</span>
       <span class="n">before</span> <span class="p">{</span> <span class="n">sign_in</span> <span class="n">user</span><span class="p">,</span> <span class="ss">no_capybara:</span> <span class="kp">true</span> <span class="p">}</span>
 
-      <span class="n">describe</span> <span class="s2">&quot;visiting Users#edit page&quot;</span> <span class="k">do</span>
-        <span class="n">before</span> <span class="p">{</span> <span class="n">visit</span> <span class="n">edit_user_path</span><span class="p">(</span><span class="n">wrong_user</span><span class="p">)</span> <span class="p">}</span>
-        <span class="n">it</span> <span class="p">{</span> <span class="n">should_not</span> <span class="n">have_title</span><span class="p">(</span><span class="n">full_title</span><span class="p">(</span><span class="s1">&#39;Edit user&#39;</span><span class="p">))</span> <span class="p">}</span>
+      <span class="n">describe</span> <span class="s2">&quot;submitting a GET request to the Users#edit action&quot;</span> <span class="k">do</span>
+        <span class="n">before</span> <span class="p">{</span> <span class="n">get</span> <span class="n">edit_user_path</span><span class="p">(</span><span class="n">wrong_user</span><span class="p">)</span> <span class="p">}</span>
+        <span class="n">specify</span> <span class="p">{</span> <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">body</span><span class="p">)</span><span class="o">.</span><span class="n">not_to</span> <span class="n">match</span><span class="p">(</span><span class="n">full_title</span><span class="p">(</span><span class="s1">&#39;Edit user&#39;</span><span class="p">))</span> <span class="p">}</span>
+        <span class="n">specify</span> <span class="p">{</span> <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">redirect_to</span><span class="p">(</span><span class="n">root_url</span><span class="p">)</span> <span class="p">}</span>
       <span class="k">end</span>
 
       <span class="n">describe</span> <span class="s2">&quot;submitting a PATCH request to the Users#update action&quot;</span> <span class="k">do</span>
@@ -2356,7 +2357,10 @@ code appears in <a class="ref" href="updating-showing-and-deleting-users.html#co
         <span class="p">{</span> <span class="ss">user:</span> <span class="p">{</span> <span class="ss">admin:</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">password:</span> <span class="n">user</span><span class="o">.</span><span class="n">password</span><span class="p">,</span>
                   <span class="ss">password_confirmation:</span> <span class="n">user</span><span class="o">.</span><span class="n">password</span> <span class="p">}</span> <span class="p">}</span>
       <span class="k">end</span>
-      <span class="n">before</span> <span class="p">{</span> <span class="n">patch</span> <span class="n">user_path</span><span class="p">(</span><span class="n">user</span><span class="p">),</span> <span class="n">params</span> <span class="p">}</span>
+      <span class="n">before</span> <span class="k">do</span>
+        <span class="n">sign_in</span> <span class="n">user</span><span class="p">,</span> <span class="ss">no_capybara:</span> <span class="kp">true</span>
+        <span class="n">patch</span> <span class="n">user_path</span><span class="p">(</span><span class="n">user</span><span class="p">),</span> <span class="n">params</span>
+      <span class="k">end</span>
       <span class="n">specify</span> <span class="p">{</span> <span class="n">expect</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">reload</span><span class="p">)</span><span class="o">.</span><span class="n">not_to</span> <span class="n">be_admin</span> <span class="p">}</span>
     <span class="k">end</span>
   <span class="k">end</span>
