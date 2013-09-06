@@ -974,14 +974,14 @@ THE SOFTWARE.
   <span class="k">end</span>
 
   <span class="k">def</span> <span class="nf">store_location</span>
-    <span class="n">session</span><span class="o">[</span><span class="ss">:return_to</span><span class="o">]</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">url</span>
+    <span class="n">session</span><span class="o">[</span><span class="ss">:return_to</span><span class="o">]</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">url</span> <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">get?</span>
   <span class="k">end</span>
 <span class="k">end</span>
 </pre></div>
 </div></div>
 
 
-<p>The storage mechanism is the <code>session</code> facility provided by Rails, which you can think of as being like an instance of the <code>cookies</code> variable from <a class="ref" href="sign-in-sign-out.html#sec-remember_me">Section&nbsp;8.2.1</a> that automatically expires upon browser close. We also use the <code>request</code> object to get the <code>url</code>, i.e., the URL/URL of the requested page. The <code>store_location</code> method puts the requested URL in the <code>session</code> variable under the key <code>:return_to</code>.</p>
+<p>The storage mechanism is the <code>session</code> facility provided by Rails, which you can think of as being like an instance of the <code>cookies</code> variable from <a class="ref" href="sign-in-sign-out.html#sec-remember_me">Section&nbsp;8.2.1</a> that automatically expires upon browser close. We also use the <code>request</code> object to get the <code>url</code>, i.e., the URL of the requested page. The <code>store_location</code> method puts the requested URL in the <code>session</code> variable under the key <code>:return_to</code>, but only for a <code>GET</code> request (<code>if request.get?</code>). This prevents storing the forwarding URL if a user, say, submits a form when not logged in (which is an edge case but could happen if, e.g., a user deleted the remember token by hand before submitting the form); in this case, the resulting redirect would issue a <code>GET</code> request to a URL expecting <code>POST</code>, <code>PATCH</code>, or <code>DELETE</code>, thereby causing an error.<sup class="footnote" id="fnref-9_5"><a href="#fn-9_5">5</a></sup></p>
 
 <p>To make use of <code>store_location</code>, we need to add it to the <code>signed_in_user</code> before filter, as shown in <a class="ref" href="updating-showing-and-deleting-users.html#code-add_store_location">Listing&nbsp;9.19</a>.</p>
 
@@ -1079,7 +1079,7 @@ THE SOFTWARE.
 <h2><a id="sec-9_3" href="updating-showing-and-deleting-users.html#sec-showing_all_users" class="heading"><span class="number">9.3</span> Showing all users</a></h2>
 
 
-<p>In this section, we&rsquo;ll add the <a href="http://www.answers.com/penultimate">penultimate</a> user action, the <code>index</code> action, which is designed to display <em>all</em> the users instead of just one. Along the way, we&rsquo;ll learn about populating the database with sample users and <em>paginating</em> the user output so that the index page can scale up to display a potentially large number of users. A mockup of the result&mdash;users, pagination links, and a &ldquo;Users&rdquo; navigation link&mdash;appears in <a class="ref" href="updating-showing-and-deleting-users.html#fig-user_index_mockup">Figure&nbsp;9.7</a>.<sup class="footnote" id="fnref-9_5"><a href="#fn-9_5">5</a></sup> In <a class="ref" href="updating-showing-and-deleting-users.html#sec-destroying_users">Section&nbsp;9.4</a>, we&rsquo;ll add an administrative interface to the user index so that (presumably troublesome) users can be destroyed.</p>
+<p>In this section, we&rsquo;ll add the <a href="http://www.answers.com/penultimate">penultimate</a> user action, the <code>index</code> action, which is designed to display <em>all</em> the users instead of just one. Along the way, we&rsquo;ll learn about populating the database with sample users and <em>paginating</em> the user output so that the index page can scale up to display a potentially large number of users. A mockup of the result&mdash;users, pagination links, and a &ldquo;Users&rdquo; navigation link&mdash;appears in <a class="ref" href="updating-showing-and-deleting-users.html#fig-user_index_mockup">Figure&nbsp;9.7</a>.<sup class="footnote" id="fnref-9_6"><a href="#fn-9_6">6</a></sup> In <a class="ref" href="updating-showing-and-deleting-users.html#sec-destroying_users">Section&nbsp;9.4</a>, we&rsquo;ll add an administrative interface to the user index so that (presumably troublesome) users can be destroyed.</p>
 
 <div class="label" id="fig-user_index_mockup"></div>
 
@@ -1725,7 +1725,7 @@ code appears in <a class="ref" href="updating-showing-and-deleting-users.html#co
 </div></div>
 
 
-<p>Here we call <code>render</code> not on a string with the name of a partial, but rather on a <code>user</code> variable of class <code>User</code>;<sup class="footnote" id="fnref-9_6"><a href="#fn-9_6">6</a></sup> in this context, Rails automatically looks for a partial called <code>_user.html.erb</code>, which we must create (<a class="ref" href="updating-showing-and-deleting-users.html#code-user_partial">Listing&nbsp;9.37</a>).</p>
+<p>Here we call <code>render</code> not on a string with the name of a partial, but rather on a <code>user</code> variable of class <code>User</code>;<sup class="footnote" id="fnref-9_7"><a href="#fn-9_7">7</a></sup> in this context, Rails automatically looks for a partial called <code>_user.html.erb</code>, which we must create (<a class="ref" href="updating-showing-and-deleting-users.html#code-user_partial">Listing&nbsp;9.37</a>).</p>
 
 <div class="label" id="code-user_partial"></div>
 
@@ -1935,7 +1935,7 @@ code appears in <a class="ref" href="updating-showing-and-deleting-users.html#co
 <h4><a id="sec-9_4_1_1" href="updating-showing-and-deleting-users.html#sec-revisiting_strong_parameters" class="heading">Revisiting strong parameters</a></h4>
 
 
-<p>You might have noticed that <a class="ref" href="updating-showing-and-deleting-users.html#code-populator_with_admin">Listing&nbsp;9.41</a> makes the user an admin using <code>admin: true</code> to the initialization hash. This underscores the danger of exposing our objects to the wild Web: if we simply passed an initialization hash in from an arbitrary web request, a malicious user could send a <tt>PATCH</tt> request as follows:<sup class="footnote" id="fnref-9_7"><a href="#fn-9_7">7</a></sup></p>
+<p>You might have noticed that <a class="ref" href="updating-showing-and-deleting-users.html#code-populator_with_admin">Listing&nbsp;9.41</a> makes the user an admin using <code>admin: true</code> to the initialization hash. This underscores the danger of exposing our objects to the wild Web: if we simply passed an initialization hash in from an arbitrary web request, a malicious user could send a <tt>PATCH</tt> request as follows:<sup class="footnote" id="fnref-9_8"><a href="#fn-9_8">8</a></sup></p>
 
 <div class="code"><div class="highlight"><pre>patch /users/17?admin=1
 </pre></div>
@@ -2281,6 +2281,7 @@ code appears in <a class="ref" href="updating-showing-and-deleting-users.html#co
   <span class="c1"># Uncomment these lines on Windows.</span>
   <span class="c1"># gem &#39;rb-notifu&#39;, &#39;0.0.4&#39;</span>
   <span class="c1"># gem &#39;win32console&#39;, &#39;1.3.2&#39;</span>
+  <span class="c1"># gem &#39;wdm&#39;, &#39;0.1.0&#39;</span>
 <span class="k">end</span>
 
 <span class="n">gem</span> <span class="s1">&#39;sass-rails&#39;</span><span class="p">,</span> <span class="s1">&#39;4.0.0&#39;</span>
@@ -2326,7 +2327,7 @@ code appears in <a class="ref" href="updating-showing-and-deleting-users.html#co
 
 <li>Signed-in users have no reason to access the <code>new</code> and <code>create</code> actions in the Users controller. Arrange for such users to be redirected to the root URL if they do try to hit those pages.</li>
 
-<li>Learn about the <code>request</code> object by inserting some of the methods listed in the <a href="http://api.rubyonrails.org/v4.0.0/classes/ActionDispatch/Request.html">Rails API</a><sup class="footnote" id="fnref-9_8"><a href="#fn-9_8">8</a></sup> into the site layout. (Refer to <a class="ref" href="sign-up.html#code-rails_debug">Listing&nbsp;7.1</a> if you get stuck.)</li>
+<li>Learn about the <code>request</code> object by inserting some of the methods listed in the <a href="http://api.rubyonrails.org/v4.0.0/classes/ActionDispatch/Request.html">Rails API</a><sup class="footnote" id="fnref-9_9"><a href="#fn-9_9">9</a></sup> into the site layout. (Refer to <a class="ref" href="sign-up.html#code-rails_debug">Listing&nbsp;7.1</a> if you get stuck.)</li>
 
 <li>Write a test to make sure that the friendly forwarding only forwards to the given URL the first time. On subsequent signin attempts, the forwarding URL should revert to the default (i.e., the profile page). See <a class="ref" href="updating-showing-and-deleting-users.html#code-friendly_forgetting_test">Listing&nbsp;9.52</a> for a hint (and, by a hint, I mean the solution).</li>
 
@@ -2487,10 +2488,11 @@ code appears in <a class="ref" href="updating-showing-and-deleting-users.html#co
 <li id="fn-9_2">The Gravatar site actually redirects this to <a href="http://en.gravatar.com/emails">http://en.gravatar.com/emails</a>, which is for English language users, but I&rsquo;ve omitted the <tt>en</tt> part to account for the use of other languages.&nbsp;<a class="arrow" href="#fnref-9_2">&uarr;</a></li>
 <li id="fn-9_3">Don&rsquo;t worry about how this works; the details are of interest to developers of the Rails framework itself, and by design are not important for Rails application developers.&nbsp;<a class="arrow" href="#fnref-9_3">&uarr;</a></li>
 <li id="fn-9_4">The code in this section is adapted from the <a href="http://github.com/thoughtbot/clearance">Clearance</a> gem by <a href="http://thoughtbot.com/">thoughtbot</a>.&nbsp;<a class="arrow" href="#fnref-9_4">&uarr;</a></li>
-<li id="fn-9_5">Baby photo from <a href="http://www.flickr.com/photos/glasgows/338937124/">http://www.flickr.com/photos/glasgows/338937124/</a>.&nbsp;<a class="arrow" href="#fnref-9_5">&uarr;</a></li>
-<li id="fn-9_6">The name <code>user</code> is immaterial&mdash;we could have written <code>@users.each do |foobar|</code> and then used <code>render foobar</code>. The key is the <em>class</em> of the object&mdash;in this case, <code>User</code>.&nbsp;<a class="arrow" href="#fnref-9_6">&uarr;</a></li>
-<li id="fn-9_7">Command-line tools such as <tt>curl</tt> can issue <tt>PATCH</tt> requests of this form.&nbsp;<a class="arrow" href="#fnref-9_7">&uarr;</a></li>
-<li id="fn-9_8">http://api.rubyonrails.org/v4.0.0/classes/ActionDispatch/Request.html&nbsp;<a class="arrow" href="#fnref-9_8">&uarr;</a></li>
+<li id="fn-9_5">Thanks to reader Yoel Adler for pointing out this subtle issue, and for discovering the solution.&nbsp;<a class="arrow" href="#fnref-9_5">&uarr;</a></li>
+<li id="fn-9_6">Baby photo from <a href="http://www.flickr.com/photos/glasgows/338937124/">http://www.flickr.com/photos/glasgows/338937124/</a>.&nbsp;<a class="arrow" href="#fnref-9_6">&uarr;</a></li>
+<li id="fn-9_7">The name <code>user</code> is immaterial&mdash;we could have written <code>@users.each do |foobar|</code> and then used <code>render foobar</code>. The key is the <em>class</em> of the object&mdash;in this case, <code>User</code>.&nbsp;<a class="arrow" href="#fnref-9_7">&uarr;</a></li>
+<li id="fn-9_8">Command-line tools such as <tt>curl</tt> can issue <tt>PATCH</tt> requests of this form.&nbsp;<a class="arrow" href="#fnref-9_8">&uarr;</a></li>
+<li id="fn-9_9">http://api.rubyonrails.org/v4.0.0/classes/ActionDispatch/Request.html&nbsp;<a class="arrow" href="#fnref-9_9">&uarr;</a></li>
 </ol>
 </div>
 
