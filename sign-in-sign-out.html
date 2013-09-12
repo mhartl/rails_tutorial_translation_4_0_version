@@ -1087,9 +1087,9 @@ THE SOFTWARE.
 </div></div>
 
 
-<p>Here we follow the desired steps: first, create a new token; second, place the unencrypted token in the browser cookies; third, save the encrypted token to the database; fourth, set the current user equal to the given user (<a class="ref" href="sign-in-sign-out.html#sec-current_user">Section&nbsp;8.2.3</a>). Note the use of <code>update_attribute</code> to save the token; as mentioned briefly in <a class="ref" href="modeling-users.html#sec-updating_user_objects">Section&nbsp;6.1.5</a>), this method allows us to update a single attribute while bypassing the validations&mdash;necessary in this case since we don&rsquo;t have the user&rsquo;s password or confirmation.</p>
+<p>Here we follow the desired steps: first, create a new token; second, place the unencrypted token in the browser cookies; third, save the encrypted token to the database; fourth, set the current user equal to the given user (<a class="ref" href="sign-in-sign-out.html#sec-current_user">Section&nbsp;8.2.3</a>). As we&rsquo;ll see in <a class="ref" href="sign-in-sign-out.html#sec-current_user">Section&nbsp;8.2.3</a>, setting the current user to <code>user</code> isn&rsquo;t currently necessary because of the immediate redirect in the <code>create</code> action (<a class="ref" href="sign-in-sign-out.html#code-sign_in_success_not_yet_working">Listing&nbsp;8.13</a>), but it&rsquo;s a good idea in case we ever want to use <code>sign_in</code> without a redirect.</p>
 
-<p><a class="ref" href="sign-in-sign-out.html#code-sign_in_function">Listing&nbsp;8.19</a> also introduces the <code>cookies</code> utility supplied by Rails, which allows us to manipulate browser cookies as if they were hashes. Each element in the cookie is itself a hash of two elements, a <code>value</code> and an optional <code>expires</code> date. For example, we could implement user signin by placing a cookie with value equal to the remember token that expires 20&nbsp;years from now:</p>
+<p>In <a class="ref" href="sign-in-sign-out.html#code-sign_in_function">Listing&nbsp;8.19</a>, note the use of <code>update_attribute</code> to save the token. As mentioned briefly in <a class="ref" href="modeling-users.html#sec-updating_user_objects">Section&nbsp;6.1.5</a>), this method allows us to update a single attribute while bypassing the validations&mdash;necessary in this case since we don&rsquo;t have the user&rsquo;s password or confirmation. <a class="ref" href="sign-in-sign-out.html#code-sign_in_function">Listing&nbsp;8.19</a> also introduces the <code>cookies</code> utility supplied by Rails, which allows us to manipulate browser cookies as if they were hashes. Each element in the cookie is itself a hash of two elements, a <code>value</code> and an optional <code>expires</code> date. For example, we could implement user signin by placing a cookie with value equal to the remember token that expires 20&nbsp;years from now:</p>
 
 <div class="code"><div class="highlight"><pre><span class="n">cookies</span><span class="o">[</span><span class="ss">:remember_token</span><span class="o">]</span> <span class="o">=</span> <span class="p">{</span> <span class="ss">value:</span>   <span class="n">remember_token</span><span class="p">,</span>
                              <span class="ss">expires:</span> <span class="mi">20</span><span class="o">.</span><span class="n">years</span><span class="o">.</span><span class="n">from_now</span><span class="o">.</span><span class="n">utc</span> <span class="p">}</span>
@@ -1172,7 +1172,9 @@ THE SOFTWARE.
 </div>
 
 
-<p>The purpose of this line is to create <code>current_user</code>, accessible in both controllers and views, which will allow constructions such as</p>
+<p>As noted just after <a class="ref" href="sign-in-sign-out.html#code-sign_in_function">Listing&nbsp;8.19</a>, this code will never actually be used in the present application due to the immediate redirect in Section&nbsp;sec-sign_in_success_not_yet_working, but it would be dangerous for the <code>sign_in</code> method to rely on this.</p>
+
+<p>The purpose of <code>current_user</code>, accessible in both controllers and views, is to allow constructions such as</p>
 
 <div class="code"><div class="highlight"><pre><span class="cp">&lt;%=</span> <span class="n">current_user</span><span class="o">.</span><span class="n">name</span> <span class="cp">%&gt;</span>
 </pre></div>
@@ -1186,7 +1188,7 @@ THE SOFTWARE.
 </div>
 
 
-<p>The use of <code>self</code> is necessary in this context for the same essential reason noted in the discussion leading up to <a class="ref" href="sign-in-sign-out.html#code-before_create_remember_token">Listing&nbsp;8.18</a>: without <code>self</code>, Ruby would simply create a local variable called <code>current_user</code>.</p>
+<p>The use of <code>self</code> in the assignment is necessary for the same essential reason noted in the discussion leading up to <a class="ref" href="sign-in-sign-out.html#code-before_create_remember_token">Listing&nbsp;8.18</a>: without <code>self</code>, Ruby would simply create a local variable called <code>current_user</code>.</p>
 
 <p>To start writing the code for <code>current_user</code>, note that the line</p>
 
@@ -1646,7 +1648,7 @@ if-else branching structure inside of Embedded Ruby:</p>
 </div></div>
 
 
-<p>As with the other authentication elements, we&rsquo;ll put <code>sign_out</code> in the Sessions helper module. The implementation is simple: we set the current user to <code>nil</code> and use the <code>delete</code> method on cookies to remove the remember token from the session (<a class="ref" href="sign-in-sign-out.html#code-sign_out_method">Listing&nbsp;8.30</a>). (Setting the current user to <code>nil</code> isn&rsquo;t currently necessary because of the immediate redirect in the <code>destroy</code> action, but it&rsquo;s a good idea in case we ever want to use <code>sign_out</code> without a redirect.)</p>
+<p>As with the other authentication elements, we&rsquo;ll put <code>sign_out</code> in the Sessions helper module. The implementation is simple: we set the current user to <code>nil</code> and use the <code>delete</code> method on cookies to remove the remember token from the session (<a class="ref" href="sign-in-sign-out.html#code-sign_out_method">Listing&nbsp;8.30</a>). (As with the assignment in the <code>sign_in</code> method (<a class="ref" href="sign-in-sign-out.html#code-sign_in_function">Listing&nbsp;8.19</a>), setting the current user to <code>nil</code> isn&rsquo;t currently necessary because of the immediate redirect in the <code>destroy</code> action, but it&rsquo;s a good idea in case we ever want to use <code>sign_out</code> without a redirect.)</p>
 
 <div class="label" id="code-sign_out_method"></div>
 
