@@ -526,13 +526,12 @@ THE SOFTWARE.
 <p>The <code>update</code> action needed to get the tests in <a class="ref" href="updating-showing-and-deleting-users.html#code-user_update_specs">Listing&nbsp;9.9</a> to pass is similar to the final form of the <code>create</code> action (<a class="ref" href="sign-in-sign-out.html#code-signin_upon_signup">Listing&nbsp;8.27</a>), as seen in <a class="ref" href="updating-showing-and-deleting-users.html#code-user_update_action">Listing&nbsp;9.10</a>. All this does is add</p>
 
 <div class="code"><div class="highlight"><pre><span class="n">flash</span><span class="o">[</span><span class="ss">:success</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;Profile updated&quot;</span>
-<span class="n">sign_in</span> <span class="vi">@user</span>
 <span class="n">redirect_to</span> <span class="vi">@user</span>
 </pre></div>
 </div>
 
 
-<p>to the code in <a class="ref" href="updating-showing-and-deleting-users.html#code-user_update_action_unsuccessful">Listing&nbsp;9.8</a>. Note that we sign in the user as part of a successful profile update; this is because the remember token gets reset when the user is saved (<a class="ref" href="sign-in-sign-out.html#code-before_create_remember_token">Listing&nbsp;8.18</a>), which invalidates the user&rsquo;s session (<a class="ref" href="sign-in-sign-out.html#code-current_user_working">Listing&nbsp;8.22</a>). This is a nice security feature, as it means that any hijacked sessions will automatically expire when the user information is changed.</p>
+<p>to the code in <a class="ref" href="updating-showing-and-deleting-users.html#code-user_update_action_unsuccessful">Listing&nbsp;9.8</a>.</p>
 
 <div class="label" id="code-user_update_action"></div>
 
@@ -547,7 +546,6 @@ THE SOFTWARE.
     <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
     <span class="k">if</span> <span class="vi">@user</span><span class="o">.</span><span class="n">update_attributes</span><span class="p">(</span><span class="n">user_params</span><span class="p">)</span>
       <span class="n">flash</span><span class="o">[</span><span class="ss">:success</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;Profile updated&quot;</span>
-      <span class="n">sign_in</span> <span class="vi">@user</span>
       <span class="n">redirect_to</span> <span class="vi">@user</span>
     <span class="k">else</span>
       <span class="n">render</span> <span class="s1">&#39;edit&#39;</span>
@@ -825,7 +823,6 @@ THE SOFTWARE.
   <span class="k">def</span> <span class="nf">update</span>
     <span class="k">if</span> <span class="vi">@user</span><span class="o">.</span><span class="n">update_attributes</span><span class="p">(</span><span class="n">user_params</span><span class="p">)</span>
       <span class="n">flash</span><span class="o">[</span><span class="ss">:success</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;Profile updated&quot;</span>
-      <span class="n">sign_in</span> <span class="vi">@user</span>
       <span class="n">redirect_to</span> <span class="vi">@user</span>
     <span class="k">else</span>
       <span class="n">render</span> <span class="s1">&#39;edit&#39;</span>
