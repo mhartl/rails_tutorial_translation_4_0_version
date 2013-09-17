@@ -1259,7 +1259,7 @@ in both the <code>followed_users</code> and <code>followers</code> tables.</p>
 <p>These two forms both use <code>form_for</code> to manipulate a Relationship model object; the main difference between the two is that <a class="ref" href="following-users.html#code-follow_form">Listing&nbsp;11.25</a> builds a <em>new</em> relationship, whereas <a class="ref" href="following-users.html#code-unfollow_form">Listing&nbsp;11.26</a> finds the existing relationship. Naturally, the former sends a <tt>POST</tt> request to the Relationships controller to <code>create</code> a relationship, while the latter sends a <tt>DELETE</tt> request to <code>destroy</code> a relationship. (We&rsquo;ll write these actions in <a class="ref" href="following-users.html#sec-a_working_follow_button_the_standard_way">Section&nbsp;11.2.4</a>.) Finally, you&rsquo;ll note that the follow form doesn&rsquo;t have any content other than the button, but it still needs to send the <code>followed_id</code> to the controller. We accomplish this with the <code>hidden_field</code> method in <a class="ref" href="following-users.html#code-follow_form">Listing&nbsp;11.25</a>, which produces HTML of the form</p>
 
 <div class="code"><div class="highlight"><pre><span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">&quot;relationship_followed_id&quot;</span>
-<span class="na">name=</span><span class="s">&quot;followed_relationship[followed_id]&quot;</span>
+<span class="na">name=</span><span class="s">&quot;relationship[followed_id]&quot;</span>
 <span class="na">type=</span><span class="s">&quot;hidden&quot;</span> <span class="na">value=</span><span class="s">&quot;3&quot;</span> <span class="nt">/&gt;</span>
 </pre></div>
 </div>
