@@ -135,7 +135,7 @@ THE SOFTWARE.
 <li>Change from <code>attr_accessible</code> to strong parameters (<a class="ref" href="sign-up.html#sec-strong_parameters">Section&nbsp;7.3.2</a>)</li>
 <li>Change to encrypted remember tokens (<a class="ref" href="sign-in-sign-out.html#sec-remember_me">Section&nbsp;8.2.1</a>)</li>
 <li>Change <code>before_filter</code> to <code>before_action</code> (<a class="ref" href="updating-showing-and-deleting-users.html#code-authorize_before_filter">Listing&nbsp;9.12</a>)</li>
-<li>Use Capybara&rsquo;s <code>match: :first</code> to click on the first matching link (<a class="ref" href="updating-showing-and-deleting-users.html#code-delete_link_tests">Listing&nbsp;9.43</a>)</li>
+<li>Use Capybara&rsquo;s <code>match: :first</code> to click on the first matching link (<a class="ref" href="updating-showing-and-deleting-users.html#code-delete_link_tests">Listing&nbsp;9.42</a>)</li>
 <li>Change <code>default_scope</code> from a hash argument to a lambda (<a class="ref" href="user-microposts.html#code-micropost_ordering">Listing&nbsp;10.11</a>)</li>
 <li>Change <code>dup</code> to <code>to_a</code> (<a class="ref" href="user-microposts.html#code-micropost_dependency_test">Listing&nbsp;10.12</a>)</li>
 <li>Use XPath to test button toggling (<a class="ref" href="following-users.html#sec-a_working_follow_button_the_standard_way">Section&nbsp;11.2.4</a>)</li>
@@ -1469,7 +1469,8 @@ by [Michael Hartl](http://michaelhartl.com/).
 <p>There&rsquo;s one last bit of configuration left, which is to create the files Heroku needs to serve static assets like images and CSS:</p>
 
 <div class="code"><div class="highlight"><pre><span class="gp">$</span> rake assets:precompile
-<span class="gp">$</span> git commit -a -m <span class="s2">&quot;Add precompiled assets for Heroku&quot;</span>
+<span class="gp">$</span> git add .
+<span class="gp">$</span> git commit -m <span class="s2">&quot;Add precompiled assets for Heroku&quot;</span>
 </pre></div>
 </div>
 
