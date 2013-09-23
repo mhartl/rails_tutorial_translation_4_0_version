@@ -1391,7 +1391,7 @@ THE SOFTWARE.
 <p>actually worked, but it was insecure by default and required a careful and error-prone procedure to prevent malicious users from potentially modifying the application database. As of Rails&nbsp;4.0, this code raises an error (as seen in <a class="ref" href="sign-up.html#fig-signup_failure">Figure&nbsp;7.15</a> and <a class="ref" href="sign-up.html#fig-signup_failure_rails_debug">Figure&nbsp;7.16</a> above), which means it is secure by default. We can double-check this by verifying that the relevant tests fail:</p>
 
 <div class="code"><div class="highlight"><pre><span class="gp">$</span> bundle <span class="nb">exec </span>rspec spec/requests/user_pages_spec.rb <span class="se">\</span>
-<span class="go">-e &quot;signup with invalid information&quot;</span>
+<span class="gp">&gt;</span> -e <span class="s2">&quot;signup with invalid information&quot;</span>
 </pre></div>
 </div>
 
@@ -1458,7 +1458,7 @@ THE SOFTWARE.
 <p>With the code in <a class="ref" href="sign-up.html#code-create_action_strong_parameters">Listing&nbsp;7.22</a>, the tests for invalid submission should pass:</p>
 
 <div class="code"><div class="highlight"><pre><span class="gp">$</span> bundle <span class="nb">exec </span>rspec spec/requests/user_pages_spec.rb <span class="se">\</span>
-<span class="go">-e &quot;signup with invalid information&quot;</span>
+<span class="gp">&gt;</span> -e <span class="s2">&quot;signup with invalid information&quot;</span>
 </pre></div>
 </div>
 
