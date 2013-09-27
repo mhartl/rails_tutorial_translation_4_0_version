@@ -332,7 +332,7 @@ THE SOFTWARE.
 </div>
 
 
-<p>The <code>save</code> method returns <code>true</code> if it succeeds and <code>false</code> otherwise. (Currently, all saves should succeed; we&rsquo;ll see cases in <a class="ref" href="modeling-users.html#sec-user_validations">Section&nbsp;6.2</a> when some will fail.) As soon as you save, you should see a line in the development log with the SQL command to <code>INSERT INTO "users"</code>. Because of the many methods supplied by Active Record, we won&rsquo;t ever need raw SQL in this book, and I&rsquo;ll omit discussion of the SQL commands from now on. But you can learn a lot by watching the log.</p>
+<p>The <code>save</code> method returns <code>true</code> if it succeeds and <code>false</code> otherwise. (Currently, all saves should succeed; we&rsquo;ll see cases in <a class="ref" href="modeling-users.html#sec-user_validations">Section&nbsp;6.2</a> when some will fail.) As soon as you save, you should see a line in the console with the SQL command to <code>INSERT INTO "users"</code>. Because of the many methods supplied by Active Record, we won&rsquo;t ever need raw SQL in this book, and I&rsquo;ll omit discussion of the SQL commands from now on. But you can learn a lot by reading the SQL corresponding to Active Record commands.</p>
 
 <p>You may have noticed that the new user object had <code>nil</code> values for the <code>id</code> and the magic columns <code>created_at</code> and <code>updated_at</code> attributes. Let&rsquo;s see if our <code>save</code> changed anything:</p>
 
@@ -614,7 +614,7 @@ THE SOFTWARE.
 </div></div>
 
 
-<p>The <code>before</code> block, which we saw in <a class="ref" href="filling-in-the-layout.html#code-pretty_page_tests">Listing&nbsp;5.30</a>), runs the code inside the block before each example&mdash;in this case, creating a new <code>@user</code> instance variable using <code>User.new</code> and a valid initialization hash. Then</p>
+<p>The <code>before</code> block, which we saw in <a class="ref" href="filling-in-the-layout.html#code-pretty_page_tests">Listing&nbsp;5.30</a>, runs the code inside the block before each example&mdash;in this case, creating a new <code>@user</code> instance variable using <code>User.new</code> and a valid initialization hash. Then</p>
 
 <div class="code"><div class="highlight"><pre><span class="n">subject</span> <span class="p">{</span> <span class="vi">@user</span> <span class="p">}</span>
 </pre></div>
@@ -631,7 +631,9 @@ THE SOFTWARE.
 </div>
 
 
-<p>These examples implicitly use the Ruby method <code>respond_to?</code>, which accepts a symbol and returns <code>true</code> if the object responds to the given method or attribute and <code>false</code> otherwise:</p>
+<p>By themselves, these tests aren&rsquo;t particularly useful, as a User object that doesn&rsquo;t have (say) a <code>name</code> attribute will throw an exception in the <code>before</code> block. But these tests do ensure that the constructions <code>user.name</code> and <code>user.email</code> are valid, whereas the <code>before</code> block only tests the attributes when passed as a hash to <code>new</code>. In addition, testing for model attributes is a useful convention, as it allows us to see at a glance the methods the model should respond to.</p>
+
+<p>The <code>respond_to</code> methods implicitly use the Ruby method <code>respond_to?</code>, which accepts a symbol and returns <code>true</code> if the object responds to the given method or attribute and <code>false</code> otherwise:</p>
 
 <div class="code"><div class="highlight"><pre><span class="go">$ rails console --sandbox</span>
 <span class="gp">&gt;&gt; </span><span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">new</span>

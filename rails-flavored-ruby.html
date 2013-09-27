@@ -662,7 +662,25 @@ THE SOFTWARE.
 </div>
 
 
-<p>The alert reader might notice at this point that the second <code>return</code> here is actually unnecessary&mdash;being the last expression in the function, the string <code>"The string is nonempty."</code> will be returned regardless of the <code>return</code> keyword, but using <code>return</code> in both places has a pleasing symmetry to it.</p>
+<p>(The alert reader might notice at this point that the second <code>return</code> here is actually unnecessary&mdash;being the last expression in the function, the string <code>"The string is nonempty."</code> will be returned regardless of the <code>return</code> keyword, but using <code>return</code> in both places has a pleasing symmetry to it.)</p>
+
+<p>It&rsquo;s also important to understand that the name of the function argument is irrelevant as far as the caller is concerned. In other words, the first example above could replace <code>string</code> with any other valid variable name, such as <code>the_function_argument</code>, and it would work just the same:</p>
+
+<div class="code"><div class="highlight"><pre><span class="gp">&gt;&gt; </span><span class="k">def</span> <span class="nf">string_message</span><span class="p">(</span><span class="n">the_function_argument</span><span class="p">)</span>
+<span class="gp">&gt;&gt; </span>  <span class="k">if</span> <span class="n">the_function_argument</span><span class="o">.</span><span class="n">empty?</span>
+<span class="gp">&gt;&gt; </span>    <span class="s2">&quot;It&#39;s an empty string!&quot;</span>
+<span class="gp">&gt;&gt; </span>  <span class="k">else</span>
+<span class="gp">&gt;&gt; </span>    <span class="s2">&quot;The string is nonempty.&quot;</span>
+<span class="gp">&gt;&gt; </span>  <span class="k">end</span>
+<span class="gp">&gt;&gt; </span><span class="k">end</span>
+<span class="go">=&gt; nil</span>
+<span class="gp">&gt;&gt; </span><span class="nb">puts</span> <span class="n">string_message</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="go">It&#39;s an empty string!</span>
+<span class="gp">&gt;&gt; </span><span class="nb">puts</span> <span class="n">string_message</span><span class="p">(</span><span class="s2">&quot;foobar&quot;</span><span class="p">)</span>
+<span class="go">The string is nonempty.</span>
+</pre></div>
+</div>
+
 
 <div class="label" id="sec-back_to_the_title_helper"></div>
 
