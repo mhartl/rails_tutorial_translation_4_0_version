@@ -1795,30 +1795,29 @@ bundler_stubs/
 <h4><a id="sec-3_6_1_2" href="static-pages.html#sec-binstubs" class="heading">binstubs</a></h4>
 
 
-<p>If you&rsquo;re not using RVM, you can still avoid typing <code>bundle exec</code>.  Bundler allows the creation of the associated binaries as follows:</p>
+<p>If you&rsquo;re not using RVM, you can still avoid typing <code>bundle exec</code> using the <a href="https://github.com/mpapis/rubygems-bundler"><tt>rubygems-bundler</tt></a> gem:</p>
 
-<div class="code"><div class="highlight"><pre><span class="gp">$</span> bundle --binstubs
-<span class="gp">$</span> bundle config --delete bin <span class="o">&amp;&amp;</span> rm -rf bin
-<span class="gp">$</span> rake rails:update:bin
+<div class="code"><div class="highlight"><pre><span class="gp">$</span> gem install rubygems-bundler
+<span class="gp">$</span> gem regenerate_binstubs
 </pre></div>
 </div>
 
 
-<p>(In fact, this step, with a different target directory, is also used when using RVM.) This command creates all the necessary executables in the <code>bin/</code> directory of the application, so that we can now run the test suite as follows:</p>
+<p>The second command creates all the necessary executables locally, so that we can now run the test suite as follows:</p>
 
-<div class="code"><div class="highlight"><pre><span class="gp">$</span> bin/rspec spec/
+<div class="code"><div class="highlight"><pre><span class="gp">$</span> rspec spec/
 </pre></div>
 </div>
 
 
 <p>The same goes for <code>rake</code>, etc.:</p>
 
-<div class="code"><div class="highlight"><pre><span class="gp">$</span> bin/rake db:migrate
+<div class="code"><div class="highlight"><pre><span class="gp">$</span> rake db:migrate
 </pre></div>
 </div>
 
 
-<p>If you add another executable (such as <code>guard</code> in <a class="ref" href="static-pages.html#sec-guard">Section&nbsp;3.6.2</a>), you should re-run the <tt class="verb">bundle</tt> <tt class="verb">--binstubs</tt> command.</p>
+<p>If you add another executable (such as <code>guard</code> in <a class="ref" href="static-pages.html#sec-guard">Section&nbsp;3.6.2</a>), you might have to re-run <code>gem regenerate_binstubs</code>. (This shouldn&rsquo;t be necessary, but I mention the possibility just in case.)</p>
 
 <p>For the sake of readers who skip this section, the rest of this tutorial will err on the side of caution and explicitly use <code>bundle exec</code>, but of course you should feel free to use the more compact version if your system is properly configured.</p>
 
