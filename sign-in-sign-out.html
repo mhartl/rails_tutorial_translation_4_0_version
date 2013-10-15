@@ -226,6 +226,32 @@ THE SOFTWARE.
 <table class="tabular"><tr><th class="align_left"><strong>HTTP request</strong></th><th class="align_left"><strong>URL</strong></th><th class="align_left"><strong>Named route</strong></th><th class="align_left"><strong>Action</strong></th><th class="align_left"><strong>Purpose</strong></th></tr><tr class="top_bar"><td class="align_left"><tt>GET</tt></td><td class="align_left">/signin</td><td class="align_left"><code>signin_path</code></td><td class="align_left"><code>new</code></td><td class="align_left">page for  a new session (signin)</td></tr><tr><td class="align_left"><tt>POST</tt></td><td class="align_left">/sessions</td><td class="align_left"><code>sessions_path</code></td><td class="align_left"><code>create</code></td><td class="align_left">create a new session</td></tr><tr><td class="align_left"><tt>DELETE</tt></td><td class="align_left">/signout</td><td class="align_left"><code>signout_path</code></td><td class="align_left"><code>destroy</code></td><td class="align_left">delete a session (sign out)</td></tr></table></div><div class="caption"><span class="header">Table 8.1: </span><span class="description">RESTful routes provided by the sessions rules in <a class="ref" href="sign-in-sign-out.html#code-sessions_resource">Listing&nbsp;8.2</a>.</span></div></div>
 
 
+<p>By the way, if you ever want a complete list of the routes for your application, you can use the <code>rake routes</code> command to have Rails generate it for you:</p>
+
+<div class="code"><div class="highlight"><pre><span class="gp">$</span> rake routes
+<span class="go">        Prefix Verb   URI Pattern                    Controller#Action</span>
+<span class="go">         users GET    /users(.:format)               users#index</span>
+<span class="go">               POST   /users(.:format)               users#create</span>
+<span class="go">      new_user GET    /users/new(.:format)           users#new</span>
+<span class="go">     edit_user GET    /users/:id/edit(.:format)      users#edit</span>
+<span class="go">          user GET    /users/:id(.:format)           users#show</span>
+<span class="go">               PATCH  /users/:id(.:format)           users#update</span>
+<span class="go">               PUT    /users/:id(.:format)           users#update</span>
+<span class="go">               DELETE /users/:id(.:format)           users#destroy</span>
+<span class="go">      sessions POST   /sessions(.:format)            sessions#create</span>
+<span class="go">   new_session GET    /sessions/new(.:format)        sessions#new</span>
+<span class="go">       session DELETE /sessions/:id(.:format)        sessions#destroy</span>
+<span class="go">          root GET    /                              static_pages#home</span>
+<span class="go">        signup GET    /signup(.:format)              users#new</span>
+<span class="go">        signin GET    /signin(.:format)              sessions#new</span>
+<span class="go">       signout DELETE /signout(.:format)             sessions#destroy</span>
+<span class="go">          help GET    /help(.:format)                static_pages#help</span>
+<span class="go">         about GET    /about(.:format)               static_pages#about</span>
+<span class="go">       contact GET    /contact(.:format)             static_pages#contact</span>
+</pre></div>
+</div>
+
+
 <p>The next step to get the tests in <a class="ref" href="sign-in-sign-out.html#code-new_session_tests">Listing&nbsp;8.1</a> to pass is to add a <code>new</code> action to the Sessions controller, as shown in <a class="ref" href="sign-in-sign-out.html#code-new_session_title">Listing&nbsp;8.3</a> (which also defines the <code>create</code> and <code>destroy</code> actions for future reference).</p>
 
 <div class="label" id="code-new_session_title"></div>
@@ -1264,7 +1290,9 @@ THE SOFTWARE.
 
 
 <p>If we did this, we would effectively replicate the functionality of <code>attr_accessor</code>, which we saw in <a class="ref" href="rails-flavored-ruby.html#sec-a_user_class">Section&nbsp;4.4.5</a>.<sup class="footnote" id="fnref-8_6"><a href="#fn-8_6">6</a></sup> The problem is that it utterly fails to solve our problem: with the code in <a class="ref" href="sign-in-sign-out.html#code-current_user_wrong">Listing&nbsp;8.21</a>, the user&rsquo;s signin status would be forgotten: as soon as the user went to another page&mdash;<em>poof!</em>&mdash;the session would end and the user would be automatically signed out.
-To avoid this problem, we can find the user corresponding to the remember token created by the code in <a class="ref" href="sign-in-sign-out.html#code-sign_in_function">Listing&nbsp;8.19</a>, as shown in <a class="ref" href="sign-in-sign-out.html#code-current_user_working">Listing&nbsp;8.22</a>. Note that, because the remember token in the database is encrypted, we first need to encrypt the token from the cookie before using it to find the user in the database. We accomplish this with the <code>User.encrypt</code> method defined in <a class="ref" href="sign-in-sign-out.html#code-before_create_remember_token">Listing&nbsp;8.18</a>.</p>
+This is due to the stateless nature of HTTP interactions (<a class="ref" href="sign-in-sign-out.html#sec-remember_me">Section&nbsp;8.2.1</a>)&mdash;when the user makes a second request, all the variables get set to their defaults, which for instance variables like <code>@current_user</code> is <code>nil</code>. Hence, when a user accesses another page, even on the same application, Rails has set <code>@current_user</code> to <code>nil</code>, and the code in <a class="ref" href="sign-in-sign-out.html#code-current_user_wrong">Listing&nbsp;8.21</a> won&rsquo;t do what you want it to do.</p>
+
+<p>To avoid this problem, we can find the user corresponding to the remember token created by the code in <a class="ref" href="sign-in-sign-out.html#code-sign_in_function">Listing&nbsp;8.19</a>, as shown in <a class="ref" href="sign-in-sign-out.html#code-current_user_working">Listing&nbsp;8.22</a>. Note that, because the remember token in the database is encrypted, we first need to encrypt the token from the cookie before using it to find the user in the database. We accomplish this with the <code>User.encrypt</code> method defined in <a class="ref" href="sign-in-sign-out.html#code-before_create_remember_token">Listing&nbsp;8.18</a>.</p>
 
 <div class="label" id="code-current_user_working"></div>
 

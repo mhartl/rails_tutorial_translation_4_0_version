@@ -696,7 +696,7 @@ THE SOFTWARE.
 </div>
 
 
-<p>(The same construction works for the <code>:error</code> key, but not for <code>:success</code>.)</p>
+<p>(Unfortunately, the same construction doesn&rsquo;t work for the <code>:error</code> or <code>:success</code> keys.)</p>
 
 <p>Together with <code>:success</code> and <code>:error</code>, the <code>:notice</code> key completes our triumvirate of <code>flash</code> styles, all of which are supported natively by Bootstrap CSS. By signing out and attempting to access the user edit page <a href="http://localhost:3000/users/1/edit">/users/1/edit</a>, we can see the resulting yellow &ldquo;notice&rdquo;  box, as seen in <a class="ref" href="updating-showing-and-deleting-users.html#fig-protected_sign_in">Figure&nbsp;9.6</a>.</p>
 
@@ -2073,7 +2073,7 @@ code appears in <a class="ref" href="updating-showing-and-deleting-users.html#co
   <span class="o">.</span>
   <span class="k">def</span> <span class="nf">destroy</span>
     <span class="no">User</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">destroy</span>
-    <span class="n">flash</span><span class="o">[</span><span class="ss">:success</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;User destroyed.&quot;</span>
+    <span class="n">flash</span><span class="o">[</span><span class="ss">:success</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;User deleted.&quot;</span>
     <span class="n">redirect_to</span> <span class="n">users_url</span>
   <span class="k">end</span>
   <span class="o">.</span>

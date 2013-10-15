@@ -1792,7 +1792,7 @@ and the micropost form partial in <a class="ref" href="user-microposts.html#code
 </div>
 
 
-<p>ensures that <code>id</code>&nbsp;is properly <em>escaped</em> before being included in the underlying SQL query, thereby avoiding a serious security hole called <a href="http://en.wikipedia.org/wiki/SQL_injection"><em>SQL injection</em></a>. The&nbsp;<code>id</code> attribute here is just an integer, so there is no danger in this case, but <em>always</em> escaping variables injected into SQL statements is a good habit to cultivate.</p>
+<p>ensures that <code>id</code>&nbsp;is properly <em>escaped</em> before being included in the underlying SQL query, thereby avoiding a serious security hole called <a href="http://en.wikipedia.org/wiki/SQL_injection"><em>SQL injection</em></a>. The&nbsp;<code>id</code> attribute here is just an integer (i.e., <code>self.id</code>, the unique ID of the user), so there is no danger in this case, but <em>always</em> escaping variables injected into SQL statements is a good habit to cultivate.</p>
 
 <p>Alert readers might note at this point that the code in <a class="ref" href="user-microposts.html#code-proto_status_feed">Listing&nbsp;10.36</a> is essentially equivalent to writing</p>
 
