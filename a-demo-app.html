@@ -1021,6 +1021,20 @@ page for making a new user is at <a href="http://localhost:3000/users/new">/user
 </div>
 
 
+<p>(As noted in <a class="ref" href="beginning.html#sec-heroku_setup">Section&nbsp;1.4.1</a>, some readers have reported needing to precompile static assets (such as CSS and images), which can be included by hand as follows:</p>
+
+<div class="code"><div class="highlight"><pre><span class="gp">#</span> This should only be used <span class="k">if </span>your Heroku deploy fails without it.
+<span class="gp">$</span> heroku create
+<span class="gp">$</span> rake assets:precompile
+<span class="gp">$</span> git add .
+<span class="gp">$</span> git commit -m <span class="s2">&quot;Add precompiled assets for Heroku&quot;</span>
+<span class="gp">$</span> git push heroku master
+</pre></div>
+</div>
+
+
+<p>This shouldn&rsquo;t be necessary, and I have been unable to reproduce the issue, but the reports are common enough that I include it here for reference.)</p>
+
 <p>To get the application&rsquo;s database to work, you&rsquo;ll also have to migrate the production database:</p>
 
 <div class="code"><div class="highlight"><pre><span class="gp">$</span> heroku run rake db:migrate

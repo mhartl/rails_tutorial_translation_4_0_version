@@ -1424,7 +1424,14 @@ THE SOFTWARE.
 
 <p>This code returns a version of the <code>params</code> hash with only the permitted attributes (while raising an error if the <code>:user</code> attribute is missing).</p>
 
-<p>To facilitate the use of these parameters, it&rsquo;s conventional to introduce an auxiliary method called <code>user_params</code> that returns an appropriate initialization hash. Since this method will only be used internally by the Users controller and need not be exposed to external users via the web, we&rsquo;ll make it <em>private</em> using Ruby&rsquo;s <code>private</code> keyword, as shown in <a class="ref" href="sign-up.html#code-create_action_strong_parameters">Listing&nbsp;7.22</a>. (We&rsquo;ll discuss <code>private</code> in more detail in <a class="ref" href="sign-in-sign-out.html#sec-remember_me">Section&nbsp;8.2.1</a>.)</p>
+<p>To facilitate the use of these parameters, it&rsquo;s conventional to introduce an auxiliary method called <code>user_params</code> that returns an appropriate initialization hash and use it in place of <code>params[:user]</code>:</p>
+
+<div class="code"><div class="highlight"><pre><span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">user_params</span><span class="p">)</span>
+</pre></div>
+</div>
+
+
+<p>Since <code>user_params</code> will only be used internally by the Users controller and need not be exposed to external users via the web, we&rsquo;ll make it <em>private</em> using Ruby&rsquo;s <code>private</code> keyword, as shown in <a class="ref" href="sign-up.html#code-create_action_strong_parameters">Listing&nbsp;7.22</a>. (We&rsquo;ll discuss <code>private</code> in more detail in <a class="ref" href="sign-in-sign-out.html#sec-remember_me">Section&nbsp;8.2.1</a>.)</p>
 
 <div class="label" id="code-create_action_strong_parameters"></div>
 
