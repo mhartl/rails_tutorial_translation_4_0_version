@@ -1077,7 +1077,21 @@ In addition to this bracket notation, Ruby offers synonyms for some commonly acc
 </div>
 
 
-<p>This construction more closely follows the hash notation in other languages (such as JavaScript) and enjoys growing popularity in the Rails community. Both syntaxes are still in common use, so it&rsquo;s essential to be able to recognize both of them.</p>
+<p>This construction more closely follows the hash notation in other languages (such as JavaScript) and enjoys growing popularity in the Rails community. Because both hash syntaxes are still in common use, it&rsquo;s essential to be able to recognize both of them. Unfortunately, this can be confusing, especially since <code>:name</code> is valid on its own (as a standalone symbol) but <code>name:</code> has no meaning by itself. The bottom line is that <code>:name =&gt;</code> and <code>name:</code> are effectively the same <em>only inside literal hashes</em>, so that</p>
+
+<div class="code"><div class="highlight"><pre><span class="p">{</span> <span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s2">&quot;Michael Hartl&quot;</span> <span class="p">}</span>
+</pre></div>
+</div>
+
+
+<p>and</p>
+
+<div class="code"><div class="highlight"><pre><span class="p">{</span> <span class="nb">name</span><span class="p">:</span> <span class="s2">&quot;Michael Hartl&quot;</span> <span class="p">}</span>
+</pre></div>
+</div>
+
+
+<p>are equivalent, but otherwise you need to use <code>:name</code> (with the colon coming first) do denote a symbol</p>
 
 <p>Hash values can be virtually anything, even other hashes, as seen in <a class="ref" href="rails-flavored-ruby.html#code-nested_hashes">Listing&nbsp;4.6</a>.</p>
 
