@@ -1459,7 +1459,7 @@ by [Michael Hartl](http://michaelhartl.com/).
 </div>
 
 
-<p>The <tt class="verb">--without production</tt> option prevents the local installation of any production gems, which in this case consists of&nbsp;<tt>pg</tt> and <tt>rails_12factor</tt>. (If Bundler complains about a <tt>readline</tt> error, try adding <code>gem &rsquo;rb-readline&rsquo;</code> to your <code>Gemfile</code>.) Because the only gems we&rsquo;ve added are restricted to a production environment, right now this command doesn&rsquo;t actually install any additional local gems, but it&rsquo;s needed to update <code>Gemfile.lock</code> with the <tt>pg</tt> and <tt>rails_12factor</tt> gems and the specific Ruby version. We can commit the resulting change as follows:</p>
+<p>The <tt class="verb">--without production</tt> option prevents the local installation of any production gems, which in this case consists of&nbsp;<tt>pg</tt> and <tt>rails_12factor</tt>. (If Bundler complains about a <tt>readline</tt> error, try adding <tt class="verb">gem 'rb-read\-line', '~&gt; 0.4.2'</tt> to your <code>Gemfile</code>.) Because the only gems we&rsquo;ve added are restricted to a production environment, right now this command doesn&rsquo;t actually install any additional local gems, but it&rsquo;s needed to update <code>Gemfile.lock</code> with the <tt>pg</tt> and <tt>rails_12factor</tt> gems and the specific Ruby version. We can commit the resulting change as follows:</p>
 
 <div class="code"><div class="highlight"><pre><span class="gp">$</span> git commit -a -m <span class="s2">&quot;Update Gemfile.lock for Heroku&quot;</span>
 </pre></div>
