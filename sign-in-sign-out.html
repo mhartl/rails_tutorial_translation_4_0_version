@@ -1676,7 +1676,7 @@ if-else branching structure inside of Embedded Ruby:</p>
 </div></div>
 
 
-<p>As with the other authentication elements, we&rsquo;ll put <code>sign_out</code> in the Sessions helper module. <a class="ref" href="sign-in-sign-out.html#code-sign_out_method">Listing&nbsp;8.30</a>) shows the steps: we first use the <code>delete</code> method on cookies to remove the remember token from the session, and then we change the user&rsquo;s remember token in the database in case the cookie has been stolen, as it could still be used to authorize a user; as an optional final step, we set the current user to <code>nil</code>. (As with the assignment in the <code>sign_in</code> method (<a class="ref" href="sign-in-sign-out.html#code-sign_in_function">Listing&nbsp;8.19</a>), setting the current user to <code>nil</code> isn&rsquo;t currently necessary because of the immediate redirect in the <code>destroy</code> action, but it&rsquo;s a good idea in case we ever want to use <code>sign_out</code> without a redirect.)</p>
+<p>As with the other authentication elements, we&rsquo;ll put <code>sign_out</code> in the Sessions helper module. <a class="ref" href="sign-in-sign-out.html#code-sign_out_method">Listing&nbsp;8.30</a>) shows the steps: we first change the user&rsquo;s remember token in the database (in case the cookie has been stolen, as it could still be used to authorize a user), and then we use the <code>delete</code> method on cookies to remove the remember token from the session; as an optional final step, we set the current user to <code>nil</code>. (As with the assignment in the <code>sign_in</code> method (<a class="ref" href="sign-in-sign-out.html#code-sign_in_function">Listing&nbsp;8.19</a>), setting the current user to <code>nil</code> isn&rsquo;t currently necessary because of the immediate redirect in the <code>destroy</code> action, but it&rsquo;s a good idea in case we ever want to use <code>sign_out</code> without a redirect.)</p>
 
 <div class="label" id="code-sign_out_method"></div>
 
@@ -1695,9 +1695,9 @@ if-else branching structure inside of Embedded Ruby:</p>
   <span class="o">.</span>
   <span class="o">.</span>
   <span class="k">def</span> <span class="nf">sign_out</span>
-    <span class="n">cookies</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="ss">:remember_token</span><span class="p">)</span>
     <span class="n">current_user</span><span class="o">.</span><span class="n">update_attribute</span><span class="p">(</span><span class="ss">:remember_token</span><span class="p">,</span>
                                   <span class="no">User</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="no">User</span><span class="o">.</span><span class="n">new_remember_token</span><span class="p">))</span>
+    <span class="n">cookies</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="ss">:remember_token</span><span class="p">)</span>
     <span class="nb">self</span><span class="o">.</span><span class="n">current_user</span> <span class="o">=</span> <span class="kp">nil</span>
   <span class="k">end</span>
 <span class="k">end</span>
