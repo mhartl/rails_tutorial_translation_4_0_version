@@ -314,7 +314,7 @@ THE SOFTWARE.
 
 <p>As seen in <a class="ref" href="sign-in-sign-out.html#fig-signin_failure_mockup">Figure&nbsp;8.2</a>, when the signin information is invalid we want to re-render the signin page and display an error message. We&rsquo;ll render the error as a flash message, which we can test for as follows:</p>
 
-<div class="code"><div class="highlight"><pre><span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">have_selector</span><span class="p">(</span><span class="s1">&#39;div.alert.alert-error&#39;</span><span class="p">,</span> <span class="ss">text:</span> <span class="s1">&#39;Invalid&#39;</span><span class="p">)</span> <span class="p">}</span>
+<div class="code"><div class="highlight"><pre><span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">have_selector</span><span class="p">(</span><span class="s1">&#39;div.alert.alert-error&#39;</span><span class="p">)</span> <span class="p">}</span>
 </pre></div>
 </div>
 
@@ -326,7 +326,7 @@ THE SOFTWARE.
 </div>
 
 
-<p>which checks for a <code>div</code> tag. In particular, recalling that the dot means &ldquo;class&rdquo; in CSS (<a class="ref" href="filling-in-the-layout.html#sec-custom_css">Section&nbsp;5.1.2</a>), you might be able to guess that this tests for a <code>div</code> tag with the classes <code>"alert"</code> and <code>"alert-error"</code>. We also test that the error message contains the text <code>"Invalid"</code>. Putting these together, the test looks for an element of the following form:</p>
+<p>which checks for a <code>div</code> tag. In particular, recalling that the dot means &ldquo;class&rdquo; in CSS (<a class="ref" href="filling-in-the-layout.html#sec-custom_css">Section&nbsp;5.1.2</a>), you might be able to guess that this tests for a <code>div</code> tag with the classes <code>"alert"</code> and <code>"alert-error"</code>, like so:</p>
 
 <div class="code"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;alert alert-error&quot;</span><span class="nt">&gt;</span>Invalid...<span class="nt">&lt;/div&gt;</span>
 </pre></div>
@@ -353,7 +353,7 @@ THE SOFTWARE.
       <span class="n">before</span> <span class="p">{</span> <span class="n">click_button</span> <span class="s2">&quot;Sign in&quot;</span> <span class="p">}</span>
 
       <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">have_title</span><span class="p">(</span><span class="s1">&#39;Sign in&#39;</span><span class="p">)</span> <span class="p">}</span>
-      <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">have_selector</span><span class="p">(</span><span class="s1">&#39;div.alert.alert-error&#39;</span><span class="p">,</span> <span class="ss">text:</span> <span class="s1">&#39;Invalid&#39;</span><span class="p">)</span> <span class="p">}</span>
+      <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">have_selector</span><span class="p">(</span><span class="s1">&#39;div.alert.alert-error&#39;</span><span class="p">)</span> <span class="p">}</span>
     <span class="k">end</span>
   <span class="k">end</span>
 <span class="k">end</span>
@@ -731,7 +731,7 @@ THE SOFTWARE.
       <span class="n">before</span> <span class="p">{</span> <span class="n">click_button</span> <span class="s2">&quot;Sign in&quot;</span> <span class="p">}</span>
 
       <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">have_title</span><span class="p">(</span><span class="s1">&#39;Sign in&#39;</span><span class="p">)</span> <span class="p">}</span>
-      <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">have_selector</span><span class="p">(</span><span class="s1">&#39;div.alert.alert-error&#39;</span><span class="p">,</span> <span class="ss">text:</span> <span class="s1">&#39;Invalid&#39;</span><span class="p">)</span> <span class="p">}</span>
+      <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">have_selector</span><span class="p">(</span><span class="s1">&#39;div.alert.alert-error&#39;</span><span class="p">)</span> <span class="p">}</span>
 
       <span class="n">describe</span> <span class="s2">&quot;after visiting another page&quot;</span> <span class="k">do</span>
         <span class="n">before</span> <span class="p">{</span> <span class="n">click_link</span> <span class="s2">&quot;Home&quot;</span> <span class="p">}</span>
@@ -1982,7 +1982,7 @@ if-else branching structure inside of Embedded Ruby:</p>
       <span class="n">before</span> <span class="p">{</span> <span class="n">click_button</span> <span class="s2">&quot;Sign in&quot;</span> <span class="p">}</span>
 
       <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">have_title</span><span class="p">(</span><span class="s1">&#39;Sign in&#39;</span><span class="p">)</span> <span class="p">}</span>
-      <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">have_selector</span><span class="p">(</span><span class="s1">&#39;div.alert.alert-error&#39;</span><span class="p">,</span> <span class="ss">text:</span> <span class="s1">&#39;Invalid&#39;</span><span class="p">)</span> <span class="p">}</span>
+      <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">have_selector</span><span class="p">(</span><span class="s1">&#39;div.alert.alert-error&#39;</span><span class="p">)</span> <span class="p">}</span>
     <span class="k">end</span>
 
     <span class="n">describe</span> <span class="s2">&quot;with valid information&quot;</span> <span class="k">do</span>
@@ -2016,7 +2016,7 @@ if-else branching structure inside of Embedded Ruby:</p>
 <p>to express the expectation of seeing an error message, and</p>
 
 <div class="code"><div class="highlight"><pre><span class="no">Then</span> <span class="sr">/^they should see an error message$/</span> <span class="k">do</span>
-  <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">have_selector</span><span class="p">(</span><span class="s1">&#39;div.alert.alert-error&#39;</span><span class="p">,</span> <span class="ss">text:</span> <span class="s1">&#39;Invalid&#39;</span><span class="p">)</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">have_selector</span><span class="p">(</span><span class="s1">&#39;div.alert.alert-error&#39;</span><span class="p">)</span>
 <span class="k">end</span>
 </pre></div>
 </div>
@@ -2026,7 +2026,7 @@ if-else branching structure inside of Embedded Ruby:</p>
 
 <p>In this vein, it might make you unhappy to write</p>
 
-<div class="code"><div class="highlight"><pre><span class="n">should</span> <span class="n">have_selector</span><span class="p">(</span><span class="s1">&#39;div.alert.alert-error&#39;</span><span class="p">,</span> <span class="ss">text:</span> <span class="s1">&#39;Invalid&#39;</span><span class="p">)</span>
+<div class="code"><div class="highlight"><pre><span class="n">should</span> <span class="n">have_selector</span><span class="p">(</span><span class="s1">&#39;div.alert.alert-error&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 
