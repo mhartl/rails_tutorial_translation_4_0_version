@@ -125,7 +125,7 @@ THE SOFTWARE.
 <h2><a id="sec-9_1" href="updating-showing-and-deleting-users.html#sec-updating_users" class="heading"><span class="number">9.1</span> Updating users</a></h2>
 
 
-<p>The pattern for editing user information closely parallels that for creating new users (<a class="ref" href="sign-up.html#top">Chapter&nbsp;7</a>). Instead of a <code>new</code> action rendering a view for new users, we have an <code>edit</code> action rendering a view to edit users; instead of <code>create</code> responding to a <tt>POST</tt> request, we have an <code>update</code> action responding to a <tt>PATCH</tt> request (<a class="ref" href="static-pages.html#sidebar-get_etc">Box&nbsp;3.3</a>). The biggest difference is that, while anyone can sign up, only the current user should be able to update his information. This means that we need to enforce access control so that only authorized users can edit and update; the authentication machinery from <a class="ref" href="sign-in-sign-out.html#top">Chapter&nbsp;8</a> will allow us to use a <em>before filter</em> to ensure that this is the case.</p>
+<p>The pattern for editing user information closely parallels that for creating new users (<a class="ref" href="sign-up.html#top">Chapter&nbsp;7</a>). Instead of a <code>new</code> action rendering a view for new users, we have an <code>edit</code> action rendering a view to edit users; instead of <code>create</code> responding to a <tt>POST</tt> request, we have an <code>update</code> action responding to a <tt>PATCH</tt> request (<a class="ref" href="static-pages.html#sidebar-get_etc">Box&nbsp;3.3</a>). The biggest difference is that, while anyone can sign up, only the current user should be able to update their information. This means that we need to enforce access control so that only authorized users can edit and update; the authentication machinery from <a class="ref" href="sign-in-sign-out.html#top">Chapter&nbsp;8</a> will allow us to use a <em>before filter</em> to ensure that this is the case.</p>
 
 <div class="label" id="sec-edit_form"></div>
 
@@ -995,7 +995,7 @@ THE SOFTWARE.
 </div>
 
 
-<p>This evaluates to <code>session[:return_to]</code> unless it&rsquo;s <code>nil</code>, in which case it evaluates to the given default URL. Note that <a class="ref" href="updating-showing-and-deleting-users.html#code-friendly_forwarding_code">Listing&nbsp;9.17</a> is careful to remove the forwarding URL; otherwise, subsequent signin attempts would forward to the protected page until the user closed his browser. (Testing for this is left as an exercise (<a class="ref" href="updating-showing-and-deleting-users.html#sec-updating_deleting_exercises">Section&nbsp;9.6</a>.)</p>
+<p>This evaluates to <code>session[:return_to]</code> unless it&rsquo;s <code>nil</code>, in which case it evaluates to the given default URL. Note that <a class="ref" href="updating-showing-and-deleting-users.html#code-friendly_forwarding_code">Listing&nbsp;9.17</a> is careful to remove the forwarding URL; otherwise, subsequent signin attempts would forward to the protected page until the user closed their browser. (Testing for this is left as an exercise (<a class="ref" href="updating-showing-and-deleting-users.html#sec-updating_deleting_exercises">Section&nbsp;9.6</a>.)</p>
 
 <div class="label" id="code-friendly_session_create"></div>
 
