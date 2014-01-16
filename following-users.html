@@ -670,7 +670,7 @@ in both the <code>followed_users</code> and <code>followers</code> tables.</p>
   <span class="k">end</span>
 
   <span class="k">def</span> <span class="nf">unfollow!</span><span class="p">(</span><span class="n">other_user</span><span class="p">)</span>
-    <span class="n">relationships</span><span class="o">.</span><span class="n">find_by</span><span class="p">(</span><span class="ss">followed_id:</span> <span class="n">other_user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span><span class="o">.</span><span class="n">destroy!</span>
+    <span class="n">relationships</span><span class="o">.</span><span class="n">find_by</span><span class="p">(</span><span class="ss">followed_id:</span> <span class="n">other_user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span><span class="o">.</span><span class="n">destroy</span>
   <span class="k">end</span>
   <span class="o">.</span>
   <span class="o">.</span>
