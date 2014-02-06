@@ -2413,7 +2413,7 @@ code appears in <a class="ref" href="updating-showing-and-deleting-users.html#co
 
           <span class="n">describe</span> <span class="s2">&quot;when signing in again&quot;</span> <span class="k">do</span>
             <span class="n">before</span> <span class="k">do</span>
-              <span class="n">delete</span> <span class="n">signout_path</span>
+              <span class="n">click_link</span> <span class="s2">&quot;Sign out&quot;</span>
               <span class="n">visit</span> <span class="n">signin_path</span>
               <span class="n">fill_in</span> <span class="s2">&quot;Email&quot;</span><span class="p">,</span>    <span class="ss">with:</span> <span class="n">user</span><span class="o">.</span><span class="n">email</span>
               <span class="n">fill_in</span> <span class="s2">&quot;Password&quot;</span><span class="p">,</span> <span class="ss">with:</span> <span class="n">user</span><span class="o">.</span><span class="n">password</span>

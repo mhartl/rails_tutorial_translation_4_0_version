@@ -1000,7 +1000,7 @@ THE SOFTWARE.
   <span class="o">.</span>
   <span class="o">.</span>
   <span class="o">.</span>
-  <span class="n">describe</span> <span class="s2">&quot;signup page&quot;</span> <span class="k">do</span>
+  <span class="n">describe</span> <span class="s2">&quot;signup&quot;</span> <span class="k">do</span>
 
     <span class="n">before</span> <span class="p">{</span> <span class="n">visit</span> <span class="n">signup_path</span> <span class="p">}</span>
 
@@ -1109,7 +1109,7 @@ THE SOFTWARE.
 </div>
 
 
-<p>(The <code>-e</code> here arranges to run just the examples whose description strings match <code>"signup page"</code>. Note in particular that this is <em>not</em> the substring <code>"signup"</code>, which would run all the test in <a class="ref" href="sign-up.html#code-basic_signup_tests">Listing&nbsp;7.16</a>.) To get these tests to pass again and to get our form to render, we must define an <code>@user</code> variable in the controller action corresponding to <code>new.html.erb</code>, i.e., the <code>new</code> action in the Users controller. The <code>form_for</code> helper expects <code>@user</code> to be a User object, and since we&rsquo;re creating a <em>new</em> user we simply use <code>User.new</code>, as seen in <a class="ref" href="sign-up.html#code-new_action_with_user">Listing&nbsp;7.18</a>.</p>
+<p>(The <code>-e</code> here arranges to run just the examples whose description strings match <code>"signup page"</code>. Note in particular that this is <em>not</em> the substring <code>"signup"</code>, which would run all the tests in <a class="ref" href="sign-up.html#code-basic_signup_tests">Listing&nbsp;7.16</a>.) To get these tests to pass again and to get our form to render, we must define an <code>@user</code> variable in the controller action corresponding to <code>new.html.erb</code>, i.e., the <code>new</code> action in the Users controller. The <code>form_for</code> helper expects <code>@user</code> to be a User object, and since we&rsquo;re creating a <em>new</em> user we simply use <code>User.new</code>, as seen in <a class="ref" href="sign-up.html#code-new_action_with_user">Listing&nbsp;7.18</a>.</p>
 
 <div class="label" id="code-new_action_with_user"></div>
 
