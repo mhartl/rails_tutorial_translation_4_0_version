@@ -1149,7 +1149,7 @@ In addition to this bracket notation, Ruby offers synonyms for some commonly acc
 </div>
 
 
-<p>By the way, using <code>inspect</code> to print an object is common enough that there&rsquo;s a shortcut for it, the <code>p</code> function:</p>
+<p>By the way, using <code>inspect</code> to print an object is common enough that there&rsquo;s a shortcut for it, the <code>p</code> function:<sup class="footnote" id="fnref-4_10"><a href="#fn-4_10">10</a></sup></p>
 
 <div class="code"><div class="highlight"><pre><span class="gp">&gt;&gt; </span><span class="nb">p</span> <span class="ss">:name</span>             <span class="c1"># Same as &#39;puts :name.inspect&#39;</span>
 <span class="go">:name</span>
@@ -1225,7 +1225,7 @@ In addition to this bracket notation, Ruby offers synonyms for some commonly acc
 </div>
 
 
-<p>even with a line break between the final elements? The answer is that Ruby doesn&rsquo;t distinguish between newlines and other whitespace in this context.<sup class="footnote" id="fnref-4_10"><a href="#fn-4_10">10</a></sup> The <em>reason</em> I chose to break the code into pieces is that I prefer to keep lines of source code under 80 characters for legibility.<sup class="footnote" id="fnref-4_11"><a href="#fn-4_11">11</a></sup></p>
+<p>even with a line break between the final elements? The answer is that Ruby doesn&rsquo;t distinguish between newlines and other whitespace in this context.<sup class="footnote" id="fnref-4_11"><a href="#fn-4_11">11</a></sup> The <em>reason</em> I chose to break the code into pieces is that I prefer to keep lines of source code under 80 characters for legibility.<sup class="footnote" id="fnref-4_12"><a href="#fn-4_12">12</a></sup></p>
 
 <p>So, we see now that the line</p>
 
@@ -1276,7 +1276,7 @@ In addition to this bracket notation, Ruby offers synonyms for some commonly acc
 
 <p>We see here that strings respond to the method <code>class</code>, and simply return the class they belong to.</p>
 
-<p>Instead of using a literal constructor, we can use the equivalent <em>named constructor</em>, which involves calling the <code>new</code> method on the class name:<sup class="footnote" id="fnref-4_12"><a href="#fn-4_12">12</a></sup></p>
+<p>Instead of using a literal constructor, we can use the equivalent <em>named constructor</em>, which involves calling the <code>new</code> method on the class name:<sup class="footnote" id="fnref-4_13"><a href="#fn-4_13">13</a></sup></p>
 
 <div class="code"><div class="highlight"><pre><span class="gp">&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="nb">String</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;foobar&quot;</span><span class="p">)</span>   <span class="c1"># A named constructor for a string</span>
 <span class="go">=&gt; &quot;foobar&quot;</span>
@@ -1425,7 +1425,7 @@ In addition to this bracket notation, Ruby offers synonyms for some commonly acc
 </div>
 
 
-<p>to check if the word is a palindrome.<sup class="footnote" id="fnref-4_13"><a href="#fn-4_13">13</a></sup></p>
+<p>to check if the word is a palindrome.<sup class="footnote" id="fnref-4_14"><a href="#fn-4_14">14</a></sup></p>
 
 <div class="label" id="sec-modifying_built_in_classes"></div>
 
@@ -1441,7 +1441,7 @@ In addition to this bracket notation, Ruby offers synonyms for some commonly acc
 </div>
 
 
-<p>Amazingly, Ruby lets you do just this; Ruby classes can be <em>opened</em> and modified, allowing ordinary mortals such as ourselves to add methods to them:<sup class="footnote" id="fnref-4_14"><a href="#fn-4_14">14</a></sup></p>
+<p>Amazingly, Ruby lets you do just this; Ruby classes can be <em>opened</em> and modified, allowing ordinary mortals such as ourselves to add methods to them:<sup class="footnote" id="fnref-4_15"><a href="#fn-4_15">15</a></sup></p>
 
 <div class="code"><div class="highlight"><pre><span class="gp">&gt;&gt; </span><span class="k">class</span> <span class="nc">String</span>
 <span class="gp">&gt;&gt; </span>  <span class="c1"># Returns true if the string is its own reverse.</span>
@@ -1497,7 +1497,7 @@ In addition to this bracket notation, Ruby offers synonyms for some commonly acc
 </div>
 
 
-<p>You&rsquo;re now in a position to appreciate, at least vaguely, what this code means: <code>StaticPagesController</code> is a class that inherits from <code>ApplicationController</code>, and comes equipped with <code>home</code>, <code>help</code>, and <code>about</code> methods. Since each Rails console session loads the local Rails environment, we can even create a controller explicitly and examine its class hierarchy:<sup class="footnote" id="fnref-4_15"><a href="#fn-4_15">15</a></sup></p>
+<p>You&rsquo;re now in a position to appreciate, at least vaguely, what this code means: <code>StaticPagesController</code> is a class that inherits from <code>ApplicationController</code>, and comes equipped with <code>home</code>, <code>help</code>, and <code>about</code> methods. Since each Rails console session loads the local Rails environment, we can even create a controller explicitly and examine its class hierarchy:<sup class="footnote" id="fnref-4_16"><a href="#fn-4_16">16</a></sup></p>
 
 <div class="code"><div class="highlight"><pre><span class="gp">&gt;&gt; </span><span class="n">controller</span> <span class="o">=</span> <span class="no">StaticPagesController</span><span class="o">.</span><span class="n">new</span>
 <span class="go">=&gt; #&lt;StaticPagesController:0x22855d0&gt;</span>
@@ -1684,7 +1684,7 @@ In addition to this bracket notation, Ruby offers synonyms for some commonly acc
 
 <li>Find an online version of the Ruby API and read about the <code>Hash</code> method <code>merge</code>.</li>
 
-<li><strong>(optional)</strong> Follow the <a href="http://rubykoans.com/">Ruby Koans</a><sup class="footnote" id="fnref-4_16"><a href="#fn-4_16">16</a></sup> to seek Ruby enlightenment.</li>
+<li><strong>(optional)</strong> Follow the <a href="http://rubykoans.com/">Ruby Koans</a><sup class="footnote" id="fnref-4_17"><a href="#fn-4_17">17</a></sup> to seek Ruby enlightenment.</li>
 </ol>
 
 
@@ -1741,13 +1741,14 @@ In addition to this bracket notation, Ruby offers synonyms for some commonly acc
 <li id="fn-4_7">Programming experts, on the other hand, might benefit from knowing that blocks are <em>closures</em>, which are one-shot anonymous functions with data attached.&nbsp;<a class="arrow" href="#fnref-4_7">&uarr;</a></li>
 <li id="fn-4_8">Ruby 1.9 actually guarantees that hashes keep their elements in the same order entered, but it would be unwise ever to count on a particular ordering.&nbsp;<a class="arrow" href="#fnref-4_8">&uarr;</a></li>
 <li id="fn-4_9">As a result of having less baggage, symbols are easier to compare to each other; strings need to be compared character by character, while symbols can be compared all in one go. This makes them ideal for use as hash keys.&nbsp;<a class="arrow" href="#fnref-4_9">&uarr;</a></li>
-<li id="fn-4_10">A newline is what comes at the end of a line, thereby starting a new line. In code, it is represented by the character <tt class="verb">\n</tt>.&nbsp;<a class="arrow" href="#fnref-4_10">&uarr;</a></li>
-<li id="fn-4_11">Actually <em>counting</em> columns could drive you crazy, which is why many text editors have a visual aid to help you. For example, if you take a look back at <a class="ref" href="beginning.html#fig-editor_shell">Figure&nbsp;1.1</a>, you&rsquo;ll see a small vertical line on the right to help keep code under 80 characters. (It&rsquo;s actually at 78 columns, which gives you a little margin for error.) If you use TextMate, you can find this feature under <tt>View &gt; Wrap Column &gt; 78</tt>. In Sublime Text, you can use <tt>View &gt; Ruler &gt; 78</tt> or <tt>View &gt; Ruler &gt; 80</tt>.&nbsp;<a class="arrow" href="#fnref-4_11">&uarr;</a></li>
-<li id="fn-4_12">These results will vary based on the version of Ruby you are using. This example assumes you are using Ruby&nbsp;1.9.3.&nbsp;<a class="arrow" href="#fnref-4_12">&uarr;</a></li>
-<li id="fn-4_13">For more on Ruby classes and the <code>self</code> keyword, see the <a href="http://railstips.org/">RailsTips</a> post &ldquo;<a href="http://railstips.org/blog/archives/2006/11/18/class-and-instance-variables-in-ruby/">Class and Instance Variables in Ruby</a>&rdquo;.&nbsp;<a class="arrow" href="#fnref-4_13">&uarr;</a></li>
-<li id="fn-4_14">For those familiar with JavaScript, this functionality is comparable to using a built-in class prototype object to augment the class. (Thanks to reader <a href="http://getsatisfaction.com/railstutorial/topics/adding_methods_to_built_in_classes_comparable_to_using_javascripts_prototype_object">Erik Eldridge</a> for pointing this out.)&nbsp;<a class="arrow" href="#fnref-4_14">&uarr;</a></li>
-<li id="fn-4_15">You don&rsquo;t have to know what each class in this hierarchy does. <em>I</em> don&rsquo;t know what they all do, and I&rsquo;ve been programming in Ruby on Rails since 2005. This means either that (a) I&rsquo;m grossly incompetent or (b) you can be a skilled Rails developer without knowing all its innards. I hope for both our sakes that it&rsquo;s the latter.&nbsp;<a class="arrow" href="#fnref-4_15">&uarr;</a></li>
-<li id="fn-4_16">http://rubykoans.com/&nbsp;<a class="arrow" href="#fnref-4_16">&uarr;</a></li>
+<li id="fn-4_10">There&rsquo;s actually a subtle difference, which is that <code>p</code> returns returns the object being printed while <code>puts</code> always returns <code>nil</code>. Thanks to reader Katarzyna Siwek for pointing this out.&nbsp;<a class="arrow" href="#fnref-4_10">&uarr;</a></li>
+<li id="fn-4_11">A newline is what comes at the end of a line, thereby starting a new line. In code, it is represented by the character <tt class="verb">\n</tt>.&nbsp;<a class="arrow" href="#fnref-4_11">&uarr;</a></li>
+<li id="fn-4_12">Actually <em>counting</em> columns could drive you crazy, which is why many text editors have a visual aid to help you. For example, if you take a look back at <a class="ref" href="beginning.html#fig-editor_shell">Figure&nbsp;1.1</a>, you&rsquo;ll see a small vertical line on the right to help keep code under 80 characters. (It&rsquo;s actually at 78 columns, which gives you a little margin for error.) If you use TextMate, you can find this feature under <tt>View &gt; Wrap Column &gt; 78</tt>. In Sublime Text, you can use <tt>View &gt; Ruler &gt; 78</tt> or <tt>View &gt; Ruler &gt; 80</tt>.&nbsp;<a class="arrow" href="#fnref-4_12">&uarr;</a></li>
+<li id="fn-4_13">These results will vary based on the version of Ruby you are using. This example assumes you are using Ruby&nbsp;1.9.3.&nbsp;<a class="arrow" href="#fnref-4_13">&uarr;</a></li>
+<li id="fn-4_14">For more on Ruby classes and the <code>self</code> keyword, see the <a href="http://railstips.org/">RailsTips</a> post &ldquo;<a href="http://railstips.org/blog/archives/2006/11/18/class-and-instance-variables-in-ruby/">Class and Instance Variables in Ruby</a>&rdquo;.&nbsp;<a class="arrow" href="#fnref-4_14">&uarr;</a></li>
+<li id="fn-4_15">For those familiar with JavaScript, this functionality is comparable to using a built-in class prototype object to augment the class. (Thanks to reader <a href="http://getsatisfaction.com/railstutorial/topics/adding_methods_to_built_in_classes_comparable_to_using_javascripts_prototype_object">Erik Eldridge</a> for pointing this out.)&nbsp;<a class="arrow" href="#fnref-4_15">&uarr;</a></li>
+<li id="fn-4_16">You don&rsquo;t have to know what each class in this hierarchy does. <em>I</em> don&rsquo;t know what they all do, and I&rsquo;ve been programming in Ruby on Rails since 2005. This means either that (a) I&rsquo;m grossly incompetent or (b) you can be a skilled Rails developer without knowing all its innards. I hope for both our sakes that it&rsquo;s the latter.&nbsp;<a class="arrow" href="#fnref-4_16">&uarr;</a></li>
+<li id="fn-4_17">http://rubykoans.com/&nbsp;<a class="arrow" href="#fnref-4_17">&uarr;</a></li>
 </ol>
 </div>
 
