@@ -1960,7 +1960,7 @@ THE SOFTWARE.
   <span class="o">.</span>
   <span class="o">.</span>
   <span class="o">.</span>
-  <span class="no">VALID_EMAIL_REGEX</span> <span class="o">=</span> <span class="sr">/\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i</span>
+  <span class="no">VALID_EMAIL_REGEX</span> <span class="o">=</span> <span class="sr">/\A[\w+\-.]+@[a-z\d\-]+(?:\.[a-z\d\-]+)*\.[a-z]+\z/i</span>
   <span class="n">validates</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">presence:</span> <span class="kp">true</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="p">{</span> <span class="ss">with:</span> <span class="no">VALID_EMAIL_REGEX</span> <span class="p">},</span>
                     <span class="ss">uniqueness:</span> <span class="p">{</span> <span class="ss">case_sensitive:</span> <span class="kp">false</span> <span class="p">}</span>
   <span class="o">.</span>
