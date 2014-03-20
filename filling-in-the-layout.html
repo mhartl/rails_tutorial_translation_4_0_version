@@ -357,7 +357,7 @@ the <code>home.html.erb</code> view (<a class="ref" href="filling-in-the-layout.
 
 <p>In <a class="ref" href="filling-in-the-layout.html#sec-adding_to_the_layout">Section&nbsp;5.1.1</a>, we associated many of the HTML elements with CSS classes, which gives us considerable flexibility in constructing a layout based on CSS. As noted in <a class="ref" href="filling-in-the-layout.html#sec-adding_to_the_layout">Section&nbsp;5.1.1</a>, many of these classes are specific to <a href="http://getbootstrap.com/">Bootstrap</a>, a framework from Twitter that makes it easy to add nice web design and user interface elements to an HTML5 application. In this section, we&rsquo;ll combine Bootstrap with some custom CSS rules to start adding some style to the sample application.</p>
 
-<p>Our first step is to add Bootstrap, which in Rails applications can be accomplished with the <tt>bootstrap-sass</tt> gem, as shown in <a class="ref" href="filling-in-the-layout.html#code-bootstrap_sass">Listing&nbsp;5.3</a>. The Bootstrap framework natively uses the <a href="http://lesscss.org/">LESS CSS</a> language for making dynamic stylesheets, but the Rails asset pipeline supports the (very similar) Sass language by default (<a class="ref" href="filling-in-the-layout.html#sec-sass_and_the_asset_pipeline">Section&nbsp;5.2</a>), so <tt>bootstrap-sass</tt> converts LESS to Sass and makes all the necessary Bootstrap files available to the current application.<sup class="footnote" id="fnref-5_5"><a href="#fn-5_5">5</a></sup></p>
+<p>Our first step is to add Bootstrap, which in Rails applications can be accomplished with the <tt>bootstrap-sass</tt> gem, as shown in <a class="ref" href="filling-in-the-layout.html#code-bootstrap_sass">Listing&nbsp;5.3</a>. (To fix a version incompatibility, <a class="ref" href="filling-in-the-layout.html#code-bootstrap_sass">Listing&nbsp;5.3</a> also fixes the version of <em>Sprockets</em>, part of the asset pipeline covered in <a class="ref" href="filling-in-the-layout.html#sec-sass_and_the_asset_pipeline">Section&nbsp;5.2</a>.) The Bootstrap framework natively uses the <a href="http://lesscss.org/">LESS CSS</a> language for making dynamic stylesheets, but the Rails asset pipeline supports the (very similar) Sass language by default (<a class="ref" href="filling-in-the-layout.html#sec-sass_and_the_asset_pipeline">Section&nbsp;5.2</a>), so <tt>bootstrap-sass</tt> converts LESS to Sass and makes all the necessary Bootstrap files available to the current application.<sup class="footnote" id="fnref-5_5"><a href="#fn-5_5">5</a></sup></p>
 
 <div class="label" id="code-bootstrap_sass"></div>
 
@@ -370,6 +370,7 @@ the <code>home.html.erb</code> view (<a class="ref" href="filling-in-the-layout.
 
 <span class="n">gem</span> <span class="s1">&#39;rails&#39;</span><span class="p">,</span> <span class="s1">&#39;4.0.3&#39;</span>
 <span class="n">gem</span> <span class="s1">&#39;bootstrap-sass&#39;</span><span class="p">,</span> <span class="s1">&#39;2.3.2.0&#39;</span>
+<span class="n">gem</span> <span class="s1">&#39;sprockets&#39;</span><span class="p">,</span> <span class="s1">&#39;2.11.0&#39;</span>
 <span class="o">.</span>
 <span class="o">.</span>
 <span class="o">.</span>
